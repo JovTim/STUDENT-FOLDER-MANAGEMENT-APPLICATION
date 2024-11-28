@@ -15,6 +15,8 @@ namespace folder_management
         public studentFolderControl()
         {
             InitializeComponent();
+
+            sampleDateLoad();
         }
 
         private void studentFolderControl_Load(object sender, EventArgs e)
@@ -29,7 +31,12 @@ namespace folder_management
 
         private void searchBar_TextChanged(object sender, EventArgs e)
         {
-
+            /*
+            if (string.IsNullOrEmpty(searchBar.Text))
+            {
+                searchBarText.Visible = true;
+            }
+            */
         }
 
         private void searchBarText_Click(object sender, EventArgs e)
@@ -48,6 +55,37 @@ namespace folder_management
         }
 
         private void listFolders_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void sampleDateLoad()
+        {
+            string[] sample_row1 = { "A11", "202281641", "DOUGLAS, JOHN PINLAC", "1", "1", "OFFICE", "DRAWER" };
+            string[] sample_row2 = { "A12", "202391431", "MCDO, PIATOS -", "2", "2", "ENCODING", "LOCKER" };
+            string[] sample_row3 = { "B41", "2022714141", "LUCER, JAMES COW", "3", "3", "MISSING", "TABLE" };
+
+            List<string[]> sample_rows = new List<string[]> { sample_row1, sample_row2, sample_row3 };
+
+            foreach (var i in sample_rows)
+            {
+                listFolders.Rows.Add(i);
+            }
+
+            string[] status = { "OFFICE", "ENCODING", "MISSING" };
+            statusCol.DataSource = status;
+        }
+
+        private void toolTipArchive_Popup(object sender, PopupEventArgs e)
+        {
+        }
+
+        private void archiveStudent_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void addStudent_Click(object sender, EventArgs e)
         {
 
         }
