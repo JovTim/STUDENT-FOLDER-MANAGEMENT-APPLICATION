@@ -46,5 +46,10 @@ namespace folder_management
         {
             searchBarText.Visible = false;
         }
+
+        private void listFolders_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
