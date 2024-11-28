@@ -59,6 +59,7 @@ namespace folder_management
 
         }
 
+        // sample data, might delete later in the future
         private void sampleDateLoad()
         {
             string[] sample_row1 = { "A11", "202281641", "DOUGLAS, JOHN PINLAC", "1", "1", "OFFICE", "DRAWER" };
@@ -77,7 +78,7 @@ namespace folder_management
             string[] sample_row14 = { "A20", "202355342", "JUNIO, ALICE MARIE LOUISE", "14", "14", "ENCODING", "LOCKER" };
             string[] sample_row15 = { "B45", "202267083", "SERRANO, MARIA CLARA AGUILAR", "15", "15", "MISSING", "TABLE" };
 
-            List<string[]> sample_rows = new List<string[]> 
+            List<string[]> sample_rows = new List<string[]>
             { sample_row1, sample_row2, sample_row3, sample_row4, sample_row5, sample_row6,
             sample_row7, sample_row8, sample_row9, sample_row10, sample_row11, sample_row12, sample_row13, sample_row14, sample_row15};
 
@@ -102,6 +103,65 @@ namespace folder_management
         private void addStudent_Click(object sender, EventArgs e)
         {
 
+        }
+
+        // change the color of the row depending of the value of the status column
+        // if status is ENCODING, the row color will turn light gray
+        // if staus is MISSING, the row color will turn light red
+        private void listFolders_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex > 0)
+            {
+                DataGridViewRow row = listFolders.Rows[e.RowIndex];
+
+                if (row.Cells[5].Value.ToString() == "ENCODING")
+                {
+                    row.DefaultCellStyle.BackColor = ColorTranslator.FromHtml("#b9b9b9");
+                }
+
+                else if (row.Cells[5].Value.ToString() == "MISSING")
+                {
+                    row.DefaultCellStyle.BackColor = ColorTranslator.FromHtml("#f58a8a");
+                }
+                else
+                {
+                    row.DefaultCellStyle.BackColor = Color.White;
+                }
+            }
+        }
+
+        private void listFolders_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex == 5)
+            {
+                DataGridViewRow row = listFolders.Rows[e.RowIndex];
+
+                string? comboBoxValue = row.Cells[e.ColumnIndex].Value?.ToString();
+
+                if (comboBoxValue == "ENCODING")
+                {
+                    row.DefaultCellStyle.BackColor = ColorTranslator.FromHtml("#b9b9b9");
+                }
+
+                else if (comboBoxValue == "MISSING")
+                {
+                    row.DefaultCellStyle.BackColor = ColorTranslator.FromHtml("#f58a8a");
+                }
+
+                else
+                {
+                    row.DefaultCellStyle.BackColor = Color.White;
+                }
+
+            }
+        }
+
+        private void listFolders_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (listFolders.IsCurrentCellDirty)
+            {
+                listFolders.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
         }
     }
 }
