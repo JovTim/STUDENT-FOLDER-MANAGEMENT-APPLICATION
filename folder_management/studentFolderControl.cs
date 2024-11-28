@@ -21,5 +21,30 @@ namespace folder_management
         {
 
         }
+
+        private void searchBar_Click(object sender, EventArgs e)
+        {
+            searchBarText.Visible = false;
+        }
+
+        private void searchBar_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void searchBarText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void searchBar_Leave(object sender, EventArgs e)
+        {
+            searchBarText.Visible = true;
+        }
+
+        private void searchBar_Enter(object sender, EventArgs e)
+        {
+            searchBarText.Visible = false;
+        }
     }
 }

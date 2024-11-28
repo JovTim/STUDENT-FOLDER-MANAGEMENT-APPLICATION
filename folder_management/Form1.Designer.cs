@@ -45,11 +45,11 @@
             // 
             mainFormTitle.AutoSize = true;
             mainFormTitle.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            mainFormTitle.Location = new Point(122, -19);
+            mainFormTitle.Location = new Point(120, -19);
             mainFormTitle.Name = "mainFormTitle";
-            mainFormTitle.Size = new Size(199, 81);
+            mainFormTitle.Size = new Size(183, 81);
             mainFormTitle.TabIndex = 0;
-            mainFormTitle.Text = "SFMA";
+            mainFormTitle.Text = "Folds";
             mainFormTitle.Click += mainFormTitle_Click;
             // 
             // logoPlaceHolder
