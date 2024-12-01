@@ -66,17 +66,17 @@ namespace folder_management
             string[] sample_row2 = { "A12", "202391431", "MCDO, PIATOS -", "2", "2", "ENCODING", "LOCKER" };
             string[] sample_row3 = { "B41", "2022714141", "LUCER, JAMES COW", "3", "3", "MISSING", "TABLE" };
             string[] sample_row4 = { "A13", "202283152", "PEREZ, MARIA LYN SANTOS", "4", "4", "OFFICE", "DRAWER" };
-            string[] sample_row5 = { "A14", "202295738", "CAMPOS, RICARDO SANTIAGO", "5", "5", "ENCODING", "LOCKER" };
-            string[] sample_row6 = { "B42", "202267241", "FLORES, DANIEL PATRICK", "6", "6", "MISSING", "TABLE" };
+            string[] sample_row5 = { "A14", "202295738", "CAMPOS, RICARDO SANTIAGO", "5", "5", "OFFICE", "LOCKER" };
+            string[] sample_row6 = { "B42", "202267241", "FLORES, DANIEL PATRICK", "6", "6", "OFFICE", "TABLE" };
             string[] sample_row7 = { "A15", "202301523", "VILLANUEVA, RHEA MAE RIVERA", "7", "7", "OFFICE", "DRAWER" };
-            string[] sample_row8 = { "A16", "202311642", "SANTOS, MIGUEL RAMON", "8", "8", "ENCODING", "LOCKER" };
-            string[] sample_row9 = { "B43", "202260432", "GONZALEZ, ANDREA MARIE", "9", "9", "MISSING", "TABLE" };
+            string[] sample_row8 = { "A16", "202311642", "SANTOS, MIGUEL RAMON", "8", "8", "OFFICE", "LOCKER" };
+            string[] sample_row9 = { "B43", "202260432", "GONZALEZ, ANDREA MARIE", "9", "9", "OFFICE", "TABLE" };
             string[] sample_row10 = { "A17", "202322451", "REYES, JONATHAN JOSE", "10", "10", "OFFICE", "DRAWER" };
             string[] sample_row11 = { "A18", "202333982", "TAN, LIZA GRACE", "11", "11", "ENCODING", "LOCKER" };
-            string[] sample_row12 = { "B44", "202250920", "CHAVEZ, ROBERTO LUIS", "12", "12", "MISSING", "TABLE" };
+            string[] sample_row12 = { "B44", "202250920", "CHAVEZ, ROBERTO LUIS", "12", "12", "OFFICE", "TABLE" };
             string[] sample_row13 = { "A19", "202344013", "VILLALON, CHRISTIAN MARCOS", "13", "13", "OFFICE", "DRAWER" };
             string[] sample_row14 = { "A20", "202355342", "JUNIO, ALICE MARIE LOUISE", "14", "14", "ENCODING", "LOCKER" };
-            string[] sample_row15 = { "B45", "202267083", "SERRANO, MARIA CLARA AGUILAR", "15", "15", "MISSING", "TABLE" };
+            string[] sample_row15 = { "B45", "202267083", "SERRANO, MARIA CLARA AGUILAR", "15", "15", "OFFICE", "TABLE" };
 
             List<string[]> sample_rows = new List<string[]>
             { sample_row1, sample_row2, sample_row3, sample_row4, sample_row5, sample_row6,
@@ -129,7 +129,9 @@ namespace folder_management
                 }
             }
         }
-
+        
+        // Whenever you try to change the value of the STATUS column, it will automatically change the color of the entire row
+        // NOTE: I MIGHT USE THIS TO ALSO UPDATE THE DATABASE
         private void listFolders_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex == 5)
