@@ -46,7 +46,15 @@ namespace folder_management
 
         private void searchBar_Leave(object sender, EventArgs e)
         {
-            searchBarText.Visible = true;
+            if (!string.IsNullOrEmpty(searchBar.Text))
+            {
+                searchBarText.Visible = false;
+            }
+            else
+            {
+                searchBarText.Visible = true;
+            }
+
         }
 
         private void searchBar_Enter(object sender, EventArgs e)
