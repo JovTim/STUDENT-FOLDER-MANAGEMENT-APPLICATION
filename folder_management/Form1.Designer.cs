@@ -38,6 +38,9 @@
             folderButton = new Button();
             panel2 = new Panel();
             mainPanel = new Panel();
+            historyButton = new Button();
+            panel5 = new Panel();
+            archiveButton = new Button();
             line1.SuspendLayout();
             SuspendLayout();
             // 
@@ -55,9 +58,11 @@
             // logoPlaceHolder
             // 
             logoPlaceHolder.AutoSize = true;
+            logoPlaceHolder.BackColor = Color.Transparent;
+            logoPlaceHolder.FlatStyle = FlatStyle.Flat;
             logoPlaceHolder.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
             logoPlaceHolder.ForeColor = Color.FromArgb(92, 225, 230);
-            logoPlaceHolder.Location = new Point(44, -19);
+            logoPlaceHolder.Location = new Point(44, -22);
             logoPlaceHolder.Name = "logoPlaceHolder";
             logoPlaceHolder.Size = new Size(92, 81);
             logoPlaceHolder.TabIndex = 2;
@@ -145,12 +150,51 @@
             mainPanel.TabIndex = 5;
             mainPanel.Paint += mainPanel_Paint;
             // 
+            // historyButton
+            // 
+            historyButton.BackColor = Color.Transparent;
+            historyButton.FlatAppearance.BorderSize = 0;
+            historyButton.FlatStyle = FlatStyle.Flat;
+            historyButton.Font = new Font("Bahnschrift SemiBold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            historyButton.Location = new Point(897, -2);
+            historyButton.Name = "historyButton";
+            historyButton.Size = new Size(231, 61);
+            historyButton.TabIndex = 6;
+            historyButton.Text = "HISTORY";
+            historyButton.UseVisualStyleBackColor = false;
+            historyButton.Click += historyButton_Click;
+            // 
+            // panel5
+            // 
+            panel5.BackColor = Color.FromArgb(217, 217, 217);
+            panel5.Location = new Point(1134, 6);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(3, 53);
+            panel5.TabIndex = 2;
+            // 
+            // archiveButton
+            // 
+            archiveButton.BackColor = Color.Transparent;
+            archiveButton.FlatAppearance.BorderSize = 0;
+            archiveButton.FlatStyle = FlatStyle.Flat;
+            archiveButton.Font = new Font("Bahnschrift SemiBold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            archiveButton.Location = new Point(1143, -2);
+            archiveButton.Name = "archiveButton";
+            archiveButton.Size = new Size(231, 61);
+            archiveButton.TabIndex = 7;
+            archiveButton.Text = "ARCHIVE";
+            archiveButton.UseVisualStyleBackColor = false;
+            archiveButton.Click += archiveButton_Click;
+            // 
             // mainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1497, 836);
+            Controls.Add(archiveButton);
+            Controls.Add(panel5);
+            Controls.Add(historyButton);
             Controls.Add(mainPanel);
             Controls.Add(panel2);
             Controls.Add(folderButton);
@@ -181,5 +225,8 @@
         private Panel mainPanel;
         private Panel panel3;
         private Panel panel4;
+        private Button historyButton;
+        private Panel panel5;
+        private Button archiveButton;
     }
 }

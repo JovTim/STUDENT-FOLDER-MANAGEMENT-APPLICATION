@@ -15,10 +15,12 @@ namespace folder_management
         public folderBoardMain()
         {
             InitializeComponent();
-
+            loadStudentFolderControl();
+            /*
             studentFolderControl studentFolderControl = new studentFolderControl();
             studentFolderControl.Dock = DockStyle.Fill;
             folderMainPanel.Controls.Add(studentFolderControl);
+            */
         }
 
         private void folderBoardMain_Load(object sender, EventArgs e)
@@ -28,54 +30,18 @@ namespace folder_management
 
         private void studentFolder_Click(object sender, EventArgs e)
         {
-            panel1.BackColor = ColorTranslator.FromHtml("#5ce1e6");
-            panel2.BackColor = ColorTranslator.FromHtml("#d9d9d9");
-            panel3.BackColor = ColorTranslator.FromHtml("#d9d9d9");
 
-            foreach (Control control in folderMainPanel.Controls)
-            {
-                control.Dispose();
-            }
-            folderMainPanel.Controls.Clear();
-
-            studentFolderControl studentFolderControl = new studentFolderControl();
-            studentFolderControl.Dock = DockStyle.Fill;
-            folderMainPanel.Controls.Add(studentFolderControl);
         }
 
         private void folderHistory_Click(object sender, EventArgs e)
         {
-            panel1.BackColor = ColorTranslator.FromHtml("#d9d9d9");
-            panel2.BackColor = ColorTranslator.FromHtml("#5ce1e6");
-            panel3.BackColor = ColorTranslator.FromHtml("#d9d9d9");
 
-            foreach (Control control in folderMainPanel.Controls)
-            {
-                control.Dispose();
-            }
-            folderMainPanel.Controls.Clear();
-
-            studentFolderHistoryControl folderHistory = new studentFolderHistoryControl();
-            folderHistory.Dock = DockStyle.Fill;
-            folderMainPanel.Controls.Add(folderHistory);
 
         }
 
         private void folderArchives_Click(object sender, EventArgs e)
         {
-            panel1.BackColor = ColorTranslator.FromHtml("#d9d9d9");
-            panel2.BackColor = ColorTranslator.FromHtml("#d9d9d9");
-            panel3.BackColor = ColorTranslator.FromHtml("#5ce1e6");
-            
-            foreach (Control control in folderMainPanel.Controls)
-            {
-                control.Dispose();
-            }
-            folderMainPanel.Controls.Clear();
 
-            studentFolderArchiveControl folderArchive = new studentFolderArchiveControl();
-            folderArchive.Dock = DockStyle.Fill;
-            folderMainPanel.Controls.Add(folderArchive);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -83,6 +49,27 @@ namespace folder_management
 
         }
 
+        public void loadStudentFolderControl()
+        {
+            var studentFolder = new studentFolderControl();
+            studentFolder.SwitchToNextControl += loadAddStudentFolderControl;
+            showUserControl(studentFolder);
+        }
+
+
+        public void loadAddStudentFolderControl()
+        {
+            var addStudentFolder = new addStudentFolder();
+            addStudentFolder.SwitchToPreviousControl += loadStudentFolderControl;
+            showUserControl(addStudentFolder);
+        }
+
+        private void showUserControl(UserControl userControl)
+        {
+            folderMainPanel.Controls.Clear();
+            userControl.Dock = DockStyle.Fill;
+            folderMainPanel.Controls.Add(userControl);
+        }
         private void folderMainPanel_Paint(object sender, PaintEventArgs e)
         {
 

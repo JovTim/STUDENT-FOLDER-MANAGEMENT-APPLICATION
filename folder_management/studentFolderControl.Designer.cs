@@ -30,24 +30,25 @@
         {
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(studentFolderControl));
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             searchBar = new TextBox();
-            searchButton = new Button();
             searchBarText = new Label();
             listFolders = new DataGridView();
-            addStudent = new Button();
-            archiveStudent = new Button();
-            toolTipArchive = new ToolTip(components);
-            codeCol = new DataGridViewTextBoxColumn();
+            profilePicCol = new DataGridViewImageColumn();
             studentNoCol = new DataGridViewTextBoxColumn();
             studentNameCol = new DataGridViewTextBoxColumn();
             yearCol = new DataGridViewTextBoxColumn();
             blockCol = new DataGridViewTextBoxColumn();
             statusCol = new DataGridViewComboBoxColumn();
-            containerCol = new DataGridViewTextBoxColumn();
+            codeCol = new DataGridViewTextBoxColumn();
+            addStudent = new Button();
+            archiveStudent = new Button();
+            toolTipArchive = new ToolTip(components);
             ((System.ComponentModel.ISupportInitialize)listFolders).BeginInit();
             SuspendLayout();
             // 
@@ -59,21 +60,12 @@
             searchBar.ForeColor = Color.Black;
             searchBar.Location = new Point(51, 3);
             searchBar.Name = "searchBar";
-            searchBar.Size = new Size(866, 40);
+            searchBar.Size = new Size(936, 40);
             searchBar.TabIndex = 1;
             searchBar.Click += searchBar_Click;
             searchBar.TextChanged += searchBar_TextChanged;
             searchBar.Enter += searchBar_Enter;
             searchBar.Leave += searchBar_Leave;
-            // 
-            // searchButton
-            // 
-            searchButton.Location = new Point(923, 0);
-            searchButton.Name = "searchButton";
-            searchButton.Size = new Size(61, 48);
-            searchButton.TabIndex = 2;
-            searchButton.Text = "@-";
-            searchButton.UseVisualStyleBackColor = true;
             // 
             // searchBarText
             // 
@@ -109,74 +101,55 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             listFolders.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             listFolders.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            listFolders.Columns.AddRange(new DataGridViewColumn[] { codeCol, studentNoCol, studentNameCol, yearCol, blockCol, statusCol, containerCol });
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.White;
-            dataGridViewCellStyle4.Font = new Font("Bahnschrift SemiBold", 12F, FontStyle.Bold);
-            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = Color.WhiteSmoke;
-            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            listFolders.DefaultCellStyle = dataGridViewCellStyle4;
+            listFolders.Columns.AddRange(new DataGridViewColumn[] { profilePicCol, studentNoCol, studentNameCol, yearCol, blockCol, statusCol, codeCol });
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = Color.White;
+            dataGridViewCellStyle5.Font = new Font("Bahnschrift SemiBold", 12F, FontStyle.Bold);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = Color.WhiteSmoke;
+            dataGridViewCellStyle5.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            listFolders.DefaultCellStyle = dataGridViewCellStyle5;
             listFolders.EnableHeadersVisualStyles = false;
             listFolders.GridColor = SystemColors.Control;
             listFolders.Location = new Point(51, 146);
             listFolders.Name = "listFolders";
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = Color.Transparent;
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            listFolders.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.Transparent;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            listFolders.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             listFolders.RowHeadersVisible = false;
             listFolders.RowHeadersWidth = 100;
             listFolders.RowTemplate.DividerHeight = 5;
             listFolders.RowTemplate.Height = 60;
             listFolders.ScrollBars = ScrollBars.Vertical;
             listFolders.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            listFolders.Size = new Size(1019, 562);
+            listFolders.Size = new Size(958, 562);
             listFolders.TabIndex = 5;
             listFolders.CellContentClick += listFolders_CellContentClick;
             listFolders.CellFormatting += listFolders_CellFormatting;
+            listFolders.CellPainting += listFolders_CellPainting;
             listFolders.CellValueChanged += listFolders_CellValueChanged;
             listFolders.CurrentCellDirtyStateChanged += listFolders_CurrentCellDirtyStateChanged;
             // 
-            // addStudent
+            // profilePicCol
             // 
-            addStudent.Location = new Point(990, 89);
-            addStudent.Name = "addStudent";
-            addStudent.Size = new Size(61, 48);
-            addStudent.TabIndex = 6;
-            addStudent.Text = "+";
-            toolTipArchive.SetToolTip(addStudent, "Add a new student folder");
-            addStudent.UseVisualStyleBackColor = true;
-            addStudent.Click += addStudent_Click;
-            // 
-            // archiveStudent
-            // 
-            archiveStudent.Location = new Point(923, 89);
-            archiveStudent.Name = "archiveStudent";
-            archiveStudent.Size = new Size(61, 48);
-            archiveStudent.TabIndex = 7;
-            archiveStudent.Text = "\\/";
-            toolTipArchive.SetToolTip(archiveStudent, "Archive student folder\r\n- will not delete the folder\r\n- you need to go to the archive tab to manually\r\ndelete the folder");
-            archiveStudent.UseVisualStyleBackColor = true;
-            archiveStudent.Click += archiveStudent_Click;
-            // 
-            // toolTipArchive
-            // 
-            toolTipArchive.Popup += toolTipArchive_Popup;
-            // 
-            // codeCol
-            // 
-            codeCol.HeaderText = "CODE";
-            codeCol.MinimumWidth = 6;
-            codeCol.Name = "codeCol";
-            codeCol.ReadOnly = true;
-            codeCol.Resizable = DataGridViewTriState.False;
-            codeCol.Width = 55;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.White;
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.NullValue = resources.GetObject("dataGridViewCellStyle2.NullValue");
+            dataGridViewCellStyle2.SelectionBackColor = Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            profilePicCol.DefaultCellStyle = dataGridViewCellStyle2;
+            profilePicCol.HeaderText = "👤";
+            profilePicCol.MinimumWidth = 6;
+            profilePicCol.Name = "profilePicCol";
+            profilePicCol.Resizable = DataGridViewTriState.False;
+            profilePicCol.Width = 60;
             // 
             // studentNoCol
             // 
@@ -188,8 +161,8 @@
             // 
             // studentNameCol
             // 
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            studentNameCol.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            studentNameCol.DefaultCellStyle = dataGridViewCellStyle3;
             studentNameCol.HeaderText = "FULL NAME";
             studentNameCol.MinimumWidth = 6;
             studentNameCol.Name = "studentNameCol";
@@ -214,12 +187,12 @@
             // 
             // statusCol
             // 
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.Padding = new Padding(0, 0, 5, 0);
-            dataGridViewCellStyle3.SelectionBackColor = Color.WhiteSmoke;
-            dataGridViewCellStyle3.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            statusCol.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.Padding = new Padding(0, 0, 5, 0);
+            dataGridViewCellStyle4.SelectionBackColor = Color.WhiteSmoke;
+            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            statusCol.DefaultCellStyle = dataGridViewCellStyle4;
             statusCol.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
             statusCol.DividerWidth = 1;
             statusCol.FlatStyle = FlatStyle.Flat;
@@ -228,13 +201,40 @@
             statusCol.Name = "statusCol";
             statusCol.Width = 140;
             // 
-            // containerCol
+            // codeCol
             // 
-            containerCol.HeaderText = "CONTAINER";
-            containerCol.MinimumWidth = 6;
-            containerCol.Name = "containerCol";
-            containerCol.ReadOnly = true;
-            containerCol.Width = 120;
+            codeCol.HeaderText = "CODE";
+            codeCol.MinimumWidth = 6;
+            codeCol.Name = "codeCol";
+            codeCol.ReadOnly = true;
+            codeCol.Resizable = DataGridViewTriState.False;
+            codeCol.Width = 55;
+            // 
+            // addStudent
+            // 
+            addStudent.Location = new Point(926, 89);
+            addStudent.Name = "addStudent";
+            addStudent.Size = new Size(61, 48);
+            addStudent.TabIndex = 6;
+            addStudent.Text = "+";
+            toolTipArchive.SetToolTip(addStudent, "Add a new student folder");
+            addStudent.UseVisualStyleBackColor = true;
+            addStudent.Click += addStudent_Click;
+            // 
+            // archiveStudent
+            // 
+            archiveStudent.Location = new Point(859, 89);
+            archiveStudent.Name = "archiveStudent";
+            archiveStudent.Size = new Size(61, 48);
+            archiveStudent.TabIndex = 7;
+            archiveStudent.Text = "\\/";
+            toolTipArchive.SetToolTip(archiveStudent, "Archive student folder\r\n- will not delete the folder\r\n- you need to go to the archive tab to manually\r\ndelete the folder");
+            archiveStudent.UseVisualStyleBackColor = true;
+            archiveStudent.Click += archiveStudent_Click;
+            // 
+            // toolTipArchive
+            // 
+            toolTipArchive.Popup += toolTipArchive_Popup;
             // 
             // studentFolderControl
             // 
@@ -244,7 +244,6 @@
             Controls.Add(addStudent);
             Controls.Add(listFolders);
             Controls.Add(searchBarText);
-            Controls.Add(searchButton);
             Controls.Add(searchBar);
             Name = "studentFolderControl";
             Size = new Size(1104, 708);
@@ -256,18 +255,17 @@
 
         #endregion
         private TextBox searchBar;
-        private Button searchButton;
         private Label searchBarText;
         private DataGridView listFolders;
         private Button addStudent;
         private Button archiveStudent;
         private ToolTip toolTipArchive;
-        private DataGridViewTextBoxColumn codeCol;
+        private DataGridViewImageColumn profilePicCol;
         private DataGridViewTextBoxColumn studentNoCol;
         private DataGridViewTextBoxColumn studentNameCol;
         private DataGridViewTextBoxColumn yearCol;
         private DataGridViewTextBoxColumn blockCol;
         private DataGridViewComboBoxColumn statusCol;
-        private DataGridViewTextBoxColumn containerCol;
+        private DataGridViewTextBoxColumn codeCol;
     }
 }

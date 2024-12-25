@@ -79,5 +79,31 @@ namespace folder_management
         {
 
         }
+
+        private void historyButton_Click(object sender, EventArgs e)
+        {
+            foreach (Control control in mainPanel.Controls)
+            {
+                control.Dispose();
+            }
+            mainPanel.Controls.Clear();
+
+            studentFolderHistoryControl studentFolderHistoryControl = new studentFolderHistoryControl();
+            studentFolderHistoryControl.Dock = DockStyle.Fill;
+            mainPanel.Controls.Add(studentFolderHistoryControl);
+        }
+
+        private void archiveButton_Click(object sender, EventArgs e)
+        {
+            foreach (Control control in mainPanel.Controls)
+            {
+                control.Dispose();
+            }
+            mainPanel.Controls.Clear();
+
+            studentFolderArchiveControl studentFolderArchiveControl = new studentFolderArchiveControl();
+            studentFolderArchiveControl.Dock = DockStyle.Fill;
+            mainPanel.Controls.Add(studentFolderArchiveControl);
+        }
     }
 }
