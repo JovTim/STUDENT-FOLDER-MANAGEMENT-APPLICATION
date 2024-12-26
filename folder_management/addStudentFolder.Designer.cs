@@ -312,6 +312,7 @@
             insertButton.TabIndex = 36;
             insertButton.Text = "INSERT";
             insertButton.UseVisualStyleBackColor = false;
+            insertButton.Click += insertButton_Click;
             // 
             // addContentButton
             // 

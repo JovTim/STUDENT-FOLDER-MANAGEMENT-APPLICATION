@@ -12,10 +12,15 @@ namespace folder_management
 {
     public partial class addStudentFolder : UserControl
     {
-        public event Action SwitchToPreviousControl;
+        public event Action? SwitchToPreviousControl;
+        private sqliteDataAccess dataAccess;
+        private programTools? programTools;
         public addStudentFolder()
         {
             InitializeComponent();
+
+            dataAccess = new sqliteDataAccess();
+            programTools = new programTools();
         }
 
         private void addStudentFolder_Load(object sender, EventArgs e)
@@ -28,13 +33,11 @@ namespace folder_management
             SwitchToPreviousControl?.Invoke();
         }
 
-
-        /*
-        private void addCloseButton_Click(object sender, EventArgs e)
+        private void insertButton_Click(object sender, EventArgs e)
         {
-            SwitchToPreviousControl?.Invoke();
-        }
+            string profileUrl = programTools.convertToDownloadableLink(profileUrlTextBox.Text);
 
-        */
+            dataAccess.insertFolder(profileUrl, studentNumberTextBox.Text, firstNameTextBox.Text, lastNameTextBox.Text, middleNameTextBox.Text, Convert.ToInt32(yearTextBox.Text), Convert.ToInt32(blockTextBox.Text), 1, codeTextBox.Text);
+        }
     }
 }
