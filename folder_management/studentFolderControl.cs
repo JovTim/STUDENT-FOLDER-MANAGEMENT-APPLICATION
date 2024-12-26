@@ -15,6 +15,7 @@ namespace folder_management
     {
 
         public event Action SwitchToNextControl;
+        public event Action SwitchToEditControl;
         private sqliteDataAccess dataAccess;
         public studentFolderControl()
         {
@@ -217,7 +218,7 @@ namespace folder_management
                 e.Handled = true;
             }
         }
-        
+
         // sanitize the url name
         private string SanitizeFileName(string url)
         {
@@ -246,6 +247,19 @@ namespace folder_management
                 }
             }
             return Image.FromFile(fileName);
+        }
+
+        private void listFolders_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            SwitchToEditControl?.Invoke();
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow clickedRow = listFolders.Rows[e.RowIndex];
+
+                var cellValue = clickedRow.Cells[1].Value;
+
+                MessageBox.Show($"You double-clicked on row {e.RowIndex}, value: {cellValue}");
+            }
         }
     }
 }

@@ -131,6 +131,7 @@
             listFolders.Size = new Size(958, 562);
             listFolders.TabIndex = 5;
             listFolders.CellContentClick += listFolders_CellContentClick;
+            listFolders.CellDoubleClick += listFolders_CellDoubleClick;
             listFolders.CellFormatting += listFolders_CellFormatting;
             listFolders.CellPainting += listFolders_CellPainting;
             listFolders.CellValueChanged += listFolders_CellValueChanged;

@@ -53,6 +53,7 @@ namespace folder_management
         {
             var studentFolder = new studentFolderControl();
             studentFolder.SwitchToNextControl += loadAddStudentFolderControl;
+            studentFolder.SwitchToEditControl += loadEditStudentFolderControl;
             showUserControl(studentFolder);
         }
 
@@ -69,6 +70,13 @@ namespace folder_management
             folderMainPanel.Controls.Clear();
             userControl.Dock = DockStyle.Fill;
             folderMainPanel.Controls.Add(userControl);
+        }
+
+        public void loadEditStudentFolderControl()
+        {
+            var editStudentFolder = new editStudentFolder();
+            editStudentFolder.SwitchToMainControl += loadStudentFolderControl;
+            showUserControl (editStudentFolder);
         }
         private void folderMainPanel_Paint(object sender, PaintEventArgs e)
         {
