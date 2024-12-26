@@ -15,9 +15,12 @@ namespace folder_management
     {
 
         public event Action SwitchToNextControl;
+        private sqliteDataAccess dataAccess;
         public studentFolderControl()
         {
             InitializeComponent();
+
+            dataAccess = new sqliteDataAccess();
 
             sampleDateLoad();
         }
@@ -73,61 +76,45 @@ namespace folder_management
         // sample data, might delete later in the future
         private async void sampleDateLoad()
         {
-            /*
-            
-            string[] sample_row1 = { "folder_pic_default.jpg" , "202281641", "DOUGLAS, JOHN PINLAC", "1", "1", "OFFICE", "A11"};
-            string[] sample_row2 = { "folder_pic_default.jpg" ,"202391431", "MCDO, PIATOS -", "2", "2", "ENCODING", "A12"};
-            List<string[]> sample_rows = new List<string[]>
-            { sample_row1, sample_row2 };
-
-            string imageDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            */
-
             string cachePath = "cacheImage";
             Directory.CreateDirectory(cachePath);
 
-            var studentInfos = new List<(string Url, string studentNo, string studentName, string Year, string Block, string Status, string Code)>
+            if (dataAccess == null)
             {
-                ("https://drive.google.com/uc?export=download&id=1mVxkZkivUqkKST3CePQ72O93N135VHxw" , "202281641", "DOUGLAS, JOHN PINLAC", "1", "1", "OFFICE", "A11"),
-                ("https://drive.google.com/uc?export=download&id=1mVxkZkivUqkKST3CePQ72O93N135VHxw", "202391431", "MCDO, PIATOS -", "2", "2", "ENCODING", "A12"),
-                ("https://drive.google.com/uc?export=download&id=1mVxkZkivUqkKST3CePQ72O93N135VHxw","2022714141", "LUCER, JAMES COW", "3", "3", "MISSING", "B41" ),
-                ("https://drive.google.com/uc?export=download&id=1mVxkZkivUqkKST3CePQ72O93N135VHxw","202283152", "PEREZ, MARIA LYN SANTOS", "4", "4", "OFFICE", "A13" ),
-                ("https://drive.google.com/uc?export=download&id=1mVxkZkivUqkKST3CePQ72O93N135VHxw","202295738", "CAMPOS, RICARDO SANTIAGO", "5", "5", "OFFICE", "A14" ),
-                ("https://drive.google.com/uc?export=download&id=1mVxkZkivUqkKST3CePQ72O93N135VHxw", "202267241", "FLORES, DANIEL PATRICK", "6", "6", "OFFICE", "B42" ),
-                ("https://drive.google.com/uc?export=download&id=1mVxkZkivUqkKST3CePQ72O93N135VHxw","202301523", "VILLANUEVA, RHEA MAE RIVERA", "7", "7", "OFFICE", "A15" ),
-                ("https://drive.google.com/uc?export=download&id=1mVxkZkivUqkKST3CePQ72O93N135VHxw","202311642", "SANTOS, MIGUEL RAMON", "8", "8", "OFFICE", "A16" ),
-                ("https://drive.google.com/uc?export=download&id=1mVxkZkivUqkKST3CePQ72O93N135VHxw","202260432", "GONZALEZ, ANDREA MARIE", "9", "9", "OFFICE", "B43" ),
-                ("https://drive.google.com/uc?export=download&id=1mVxkZkivUqkKST3CePQ72O93N135VHxw","202322451", "REYES, JONATHAN JOSE", "10", "10", "OFFICE", "A17" ),
-                ("https://drive.google.com/uc?export=download&id=1mVxkZkivUqkKST3CePQ72O93N135VHxw","202333982", "TAN, LIZA GRACE", "11", "11", "ENCODING", "A18" ),
-                ("https://drive.google.com/uc?export=download&id=1mVxkZkivUqkKST3CePQ72O93N135VHxw","202250920", "CHAVEZ, ROBERTO LUIS", "12", "12", "OFFICE", "B44" ),
-                ("https://drive.google.com/uc?export=download&id=1mVxkZkivUqkKST3CePQ72O93N135VHxw","202344013", "VILLALON, CHRISTIAN MARCOS", "13", "13", "OFFICE", "A19" ),
-                ("https://drive.google.com/uc?export=download&id=1mVxkZkivUqkKST3CePQ72O93N135VHxw","202355342", "JUNIO, ALICE MARIE LOUISE", "14", "14", "ENCODING", "A20" ),
-                ("https://drive.google.com/uc?export=download&id=1mVxkZkivUqkKST3CePQ72O93N135VHxw","202267083", "SERRANO, MARIA CLARA AGUILAR", "15", "15", "OFFICE", "B45" ),
-            };
+                MessageBox.Show("Data access object is not initialized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+            // Load data from the database
+            var folderData = dataAccess.loadFolderData();
+
+            if (folderData == null || folderData.Count == 0)
+            {
+                MessageBox.Show("No data available.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Map the folder data to a list of tuples
+            var studentInfos = folderData.Select(i => (
+                Url: i[0],
+                studentNo: i[1],
+                studentName: i[2].ToUpper(),
+                Year: i[3],
+                Block: i[4],
+                Status: i[5],
+                Code: i[6]
+            )).ToList();
+
+            // Loop through the student information and add it to the DataGridView
             foreach (var i in studentInfos)
             {
-
                 var image = await CacheAndLoadImageAsync(i.Url, cachePath);
                 listFolders.Rows.Add(image, i.studentNo, i.studentName, i.Year, i.Block, i.Status, i.Code);
-                /*
-                // Load Image from File
-                string imagePath = System.IO.Path.Combine(imageDirectory, i[0]);
-                Image? profileImage = null;
-                if (System.IO.File.Exists(imagePath))
-                {
-                    profileImage = Image.FromFile(imagePath);
-                }
-
-                // Add Row to DataGridView
-                listFolders.Rows.Add(profileImage, i[1], i[2], i[3], i[4], i[5], i[6]);
-                */
             }
 
             // Populate Status Column
             string[] status = { "OFFICE", "ENCODING", "MISSING" };
             statusCol.DataSource = status;
-
         }
 
         private void toolTipArchive_Popup(object sender, PopupEventArgs e)
