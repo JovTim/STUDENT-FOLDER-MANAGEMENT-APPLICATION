@@ -87,6 +87,7 @@
             updateButton.TabIndex = 61;
             updateButton.Text = "UPDATE";
             updateButton.UseVisualStyleBackColor = false;
+            updateButton.Click += updateButton_Click;
             // 
             // label11
             // 

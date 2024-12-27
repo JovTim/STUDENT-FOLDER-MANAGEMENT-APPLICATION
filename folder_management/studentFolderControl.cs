@@ -251,15 +251,18 @@ namespace folder_management
 
         private void listFolders_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            SwitchToEditControl?.Invoke();
+            
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow clickedRow = listFolders.Rows[e.RowIndex];
 
                 var cellValue = clickedRow.Cells[1].Value;
 
+                dataAccess.insertTempData(Convert.ToString(cellValue));
+
                 MessageBox.Show($"You double-clicked on row {e.RowIndex}, value: {cellValue}");
             }
+            SwitchToEditControl?.Invoke();
         }
     }
 }
