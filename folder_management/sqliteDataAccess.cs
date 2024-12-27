@@ -210,8 +210,9 @@ namespace folder_management
                                 var year = reader.GetInt32(5);
                                 var block = reader.GetInt32(6);
                                 var code = reader.GetString(7);
+                                var id = reader.GetInt32(8);
 
-                                string[] folderInformation = { profile_link, student_number, first_name, last_name, middle_name, Convert.ToString(year), Convert.ToString(block), code };
+                                string[] folderInformation = { profile_link, student_number, first_name, last_name, middle_name, Convert.ToString(year), Convert.ToString(block), code, Convert.ToString(id) };
                                 output.Add(folderInformation);
                             }
                             
@@ -225,6 +226,124 @@ namespace folder_management
                 MessageBox.Show($"Error loading folder data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return output;
+        }
+
+
+        public void updateStudentFolderData(int id, string url, string student_number, string first, string last, string middle, int year, int block, string code)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
+            {
+                cnn.Open();
+                using (IDbTransaction transaction = cnn.BeginTransaction())
+                {
+                    try
+                    {
+                        using (IDbCommand cmd = cnn.CreateCommand())
+                        {
+                            cmd.Transaction = transaction;
+                            cmd.CommandText = updateFolderData();
+
+                            var paramUrl = cmd.CreateParameter();
+                            paramUrl.ParameterName = "@profile_link";
+                            paramUrl.Value = url;
+                            cmd.Parameters.Add(paramUrl);
+
+                            var paramNumber = cmd.CreateParameter();
+                            paramNumber.ParameterName = "@student_number";
+                            paramNumber.Value = student_number;
+                            cmd.Parameters.Add(paramNumber);
+
+                            var paramFirst = cmd.CreateParameter();
+                            paramFirst.ParameterName = "@first_name";
+                            paramFirst.Value = first;
+                            cmd.Parameters.Add(paramFirst);
+
+                            var paramLast = cmd.CreateParameter();
+                            paramLast.ParameterName = "@last_name";
+                            paramLast.Value = last;
+                            cmd.Parameters.Add(paramLast);
+
+                            var paramMiddle = cmd.CreateParameter();
+                            paramMiddle.ParameterName = "@middle_name";
+                            paramMiddle.Value = middle;
+                            cmd.Parameters.Add(paramMiddle);
+
+                            var paramYear = cmd.CreateParameter();
+                            paramYear.ParameterName = "@year";
+                            paramYear.Value = year;
+                            cmd.Parameters.Add(paramYear);
+
+                            var paramBlock = cmd.CreateParameter();
+                            paramBlock.ParameterName = "@block";
+                            paramBlock.Value = block;
+                            cmd.Parameters.Add(paramBlock);
+
+                            var paramCode = cmd.CreateParameter();
+                            paramCode.ParameterName = "@code";
+                            paramCode.Value = code;
+                            cmd.Parameters.Add(paramCode);
+
+                            var paramID = cmd.CreateParameter();
+                            paramID.ParameterName = "@id";
+                            paramID.Value = id;
+                            cmd.Parameters.Add(paramID);
+
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // Commit the transaction if all commands succeed
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        // Roll back the transaction if any command fails
+                        transaction.Rollback();
+                        MessageBox.Show("There was an error when updating the database!", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        throw;
+                    }
+                }
+            }
+        }
+
+
+        public void updateFolderStatus(string student_number, int status)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
+            {
+                cnn.Open();
+                using (IDbTransaction transaction = cnn.BeginTransaction())
+                {
+                    try
+                    {
+                        using (IDbCommand  cmd = cnn.CreateCommand())
+                        {
+                            cmd.Transaction = transaction;
+                            cmd.CommandText = folderStatus();
+
+                            var paramNumber = cmd.CreateParameter();
+                            paramNumber.ParameterName = "@student_number";
+                            paramNumber.Value = student_number;
+                            cmd.Parameters.Add(paramNumber);
+
+                            var paramStatus = cmd.CreateParameter();
+                            paramStatus.ParameterName = "@status";
+                            paramStatus.Value = status;
+                            cmd.Parameters.Add(paramStatus);
+
+
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show("There was an error when updating the database!", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        throw;
+                    }
+                }
+            }
         }
 
         private string loadConnectionString(string id = "Default")
@@ -276,11 +395,37 @@ namespace folder_management
             STUDENTS.first_name, STUDENTS.last_name, STUDENTS.middle_name,
             STUDENTS.year, 
             STUDENTS.block, 
-            STUDENTS.code
+            STUDENTS.code,
+            STUDENTS.id_students
             FROM STUDENTS
             LEFT JOIN FOLDER_STATUS 
             ON FOLDER_STATUS.id_status = STUDENTS.status
             WHERE STUDENTS.student_number = (SELECT number FROM TEMP_DATA ORDER BY id DESC LIMIT 1);
+            ";
+        }
+
+        private string updateFolderData()
+        {
+            return @"
+                UPDATE STUDENTS
+                SET profile_link = @profile_link,
+                    student_number = @student_number,
+                    first_name = @first_name,
+                    last_name = @last_name,
+                    middle_name = @middle_name,
+                    year = @year,
+                    block = @block,
+                    code = @code
+                WHERE id_students = @id;
+                ";
+        }
+
+        private string folderStatus()
+        {
+            return @"
+            UPDATE STUDENTS
+            SET status = @status
+            WHERE student_number = @student_number;
             ";
         }
 

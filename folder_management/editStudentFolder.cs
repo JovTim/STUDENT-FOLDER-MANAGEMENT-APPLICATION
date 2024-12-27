@@ -57,7 +57,8 @@ namespace folder_management
             middleName: i[4],
             year: i[5],
             block: i[6],
-            code: i[7]
+            code: i[7],
+            id: i[8]
             )).ToList();
 
             foreach (var i in studentInfos)
@@ -70,12 +71,25 @@ namespace folder_management
                 yearTextBox.Text = i.year;
                 blockTextBox.Text = i.block;
                 codeTextBox.Text = i.code;
+                hiddenID.Text = i.id;
             }
         }
 
         private void updateButton_Click(object sender, EventArgs e)
         {
+            dataAccess.updateStudentFolderData(
+                Convert.ToInt32(hiddenID.Text), 
+                profileUrlTextBox.Text, 
+                studentNumberTextBox.Text,
+                firstNameTextBox.Text,
+                lastNameTextBox.Text,
+                middleNameTextBox.Text,
+                Convert.ToInt32(yearTextBox.Text),
+                Convert.ToInt32(blockTextBox.Text),
+                codeTextBox.Text
+                );
 
+            SwitchToMainControl?.Invoke();
         }
     }
 }

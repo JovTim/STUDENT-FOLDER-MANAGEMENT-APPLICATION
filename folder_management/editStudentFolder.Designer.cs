@@ -56,6 +56,7 @@
             profileUrlTextBox = new TextBox();
             addCancelButton = new Button();
             label1 = new Label();
+            hiddenID = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)photoPreviewBox).BeginInit();
             SuspendLayout();
@@ -328,11 +329,21 @@
             label1.TabIndex = 38;
             label1.Text = "UPDATE STUDENT FOLDER";
             // 
+            // hiddenID
+            // 
+            hiddenID.AutoSize = true;
+            hiddenID.Location = new Point(1033, 8);
+            hiddenID.Name = "hiddenID";
+            hiddenID.Size = new Size(12, 20);
+            hiddenID.TabIndex = 63;
+            hiddenID.Text = ".";
+            // 
             // editStudentFolder
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLight;
+            Controls.Add(hiddenID);
             Controls.Add(addContentButton);
             Controls.Add(updateButton);
             Controls.Add(label11);
@@ -398,5 +409,6 @@
         private TextBox profileUrlTextBox;
         private Button addCancelButton;
         private Label label1;
+        private Label hiddenID;
     }
 }

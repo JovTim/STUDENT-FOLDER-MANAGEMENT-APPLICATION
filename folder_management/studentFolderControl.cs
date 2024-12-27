@@ -166,20 +166,24 @@ namespace folder_management
                 DataGridViewRow row = listFolders.Rows[e.RowIndex];
 
                 string? comboBoxValue = row.Cells[e.ColumnIndex].Value?.ToString();
+                var cellValue = row.Cells[1].Value?.ToString();
 
                 if (comboBoxValue == "ENCODING")
                 {
                     row.DefaultCellStyle.BackColor = ColorTranslator.FromHtml("#b9b9b9");
+                    dataAccess.updateFolderStatus(cellValue, 2);
                 }
 
                 else if (comboBoxValue == "MISSING")
                 {
                     row.DefaultCellStyle.BackColor = ColorTranslator.FromHtml("#f58a8a");
+                    dataAccess.updateFolderStatus(cellValue, 3);
                 }
 
                 else
                 {
                     row.DefaultCellStyle.BackColor = Color.White;
+                    dataAccess.updateFolderStatus(cellValue, 1);
                 }
 
             }
@@ -260,7 +264,7 @@ namespace folder_management
 
                 dataAccess.insertTempData(Convert.ToString(cellValue));
 
-                MessageBox.Show($"You double-clicked on row {e.RowIndex}, value: {cellValue}");
+                //MessageBox.Show($"You double-clicked on row {e.RowIndex}, value: {cellValue}");
             }
             SwitchToEditControl?.Invoke();
         }
