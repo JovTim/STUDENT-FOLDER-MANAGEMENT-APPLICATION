@@ -346,6 +346,44 @@ namespace folder_management
             }
         }
 
+        public List<string[]> loadFolderHistory()
+        {
+            List<string[]> output = new List<string[]>();
+            try
+            {
+                using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
+                {
+                    cnn.Open();
+                    using (IDbCommand cmd = cnn.CreateCommand())
+                    {
+                        cmd.CommandText = queryHistoryData();
+                        using (IDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var student_number = reader.GetString(0);
+                                var full_name = reader.GetString(1);
+                                var history_type = reader.GetString(2);
+                                var history_date = reader.GetString(3);
+                                var history_code = reader.GetString(4);
+                                var history_information = reader.IsDBNull(5) ? "" : reader.GetString(5);
+
+
+                                string[] historyFolderInformation = { student_number, full_name, history_type, history_date, history_code, history_information};
+                                output.Add(historyFolderInformation);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading folder data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            return output;
+        }
+
         private string loadConnectionString(string id = "Default")
         {
             return "Data Source=.\\studentFolderDb.db;Version=3;";
@@ -426,6 +464,25 @@ namespace folder_management
             UPDATE STUDENTS
             SET status = @status
             WHERE student_number = @student_number;
+            ";
+        }
+
+        private string queryHistoryData()
+        {
+            return @"
+            SELECT 
+                STUDENTS.student_number,
+                STUDENTS.last_name || ', ' || STUDENTS.first_name || ' ' || STUDENTS.middle_name AS full_name,
+                STATUS_HISTORY.history_type, 
+                HISTORY.history_date, 
+                STUDENTS.code, 
+                HISTORY.information
+            FROM STUDENTS
+            INNER JOIN HISTORY
+                ON STUDENTS.id_students = HISTORY.student_id
+            INNER JOIN STATUS_HISTORY
+                ON HISTORY.history_status = STATUS_HISTORY.id_history_status
+            ORDER BY HISTORY.history_date DESC
             ";
         }
 

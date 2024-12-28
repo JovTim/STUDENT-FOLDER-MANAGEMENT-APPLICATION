@@ -137,7 +137,7 @@ namespace folder_management
         // if staus is MISSING, the row color will turn light red
         private void listFolders_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.RowIndex > 0)
+            if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = listFolders.Rows[e.RowIndex];
 
