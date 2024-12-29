@@ -122,6 +122,7 @@ namespace folder_management
         {
         }
 
+        // TODO: After Archive, refresh the form
         private void archiveStudent_Click(object sender, EventArgs e)
         {
            if (listFolders.SelectedRows.Count == 1)
@@ -131,7 +132,14 @@ namespace folder_management
 
                 string cellValue = selectedRow.Cells[1].Value?.ToString();
 
-                MessageBox.Show($"You selected {cellValue}");
+                
+                dataAccess.insertArchive(cellValue);
+
+                MessageBox.Show($"Student {cellValue} has been archived!", "Archive Message", MessageBoxButtons.OK);
+
+                int selected = listFolders.SelectedRows[0].Index;
+                listFolders.Rows.RemoveAt(selected);
+                
            }
             else
             {
