@@ -384,6 +384,41 @@ namespace folder_management
             return output;
         }
 
+        public List<string[]> loadArchiveFolder()
+        {
+            List<string[]> output = new List<string[]>();
+            try
+            {
+                using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
+                {
+                    cnn.Open();
+                    using (IDbCommand cmd = cnn.CreateCommand())
+                    {
+                        cmd.CommandText = queryArchiveFolder();
+                        using (IDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var studentNumber = reader.GetString(0);
+                                var lastName = reader.GetString(1);
+                                var first_name = reader.GetString(2);
+                                var middle_name = reader.GetString(3);
+                                var date = reader.GetString(4);
+
+                                string[] archiveHistory = { studentNumber, lastName, first_name, middle_name, date };
+                                output.Add(archiveHistory);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading folder data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }       
+            return output;
+        }
+
         private string loadConnectionString(string id = "Default")
         {
             return "Data Source=.\\studentFolderDb.db;Version=3;";
@@ -395,15 +430,19 @@ namespace folder_management
         {
             return @"
                 SELECT 
-                STUDENTS.profile_link, STUDENTS.student_number, 
-                STUDENTS.last_name || ', ' || STUDENTS.first_name || ' ' || STUDENTS.middle_name AS full_name,
-                'YEAR ' || STUDENTS.year AS year, 
-                'BLOCK ' || STUDENTS.block AS block, 
-                FOLDER_STATUS.status_type, 
-                STUDENTS.code
+                    STUDENTS.profile_link, 
+                    STUDENTS.student_number, 
+                    STUDENTS.last_name || ', ' || STUDENTS.first_name || ' ' || STUDENTS.middle_name AS full_name,
+                    'YEAR ' || STUDENTS.year AS year, 
+                    'BLOCK ' || STUDENTS.block AS block, 
+                    FOLDER_STATUS.status_type, 
+                    STUDENTS.code
                 FROM STUDENTS
-                INNER JOIN FOLDER_STATUS 
-                ON FOLDER_STATUS.id_status = STUDENTS.status
+                LEFT JOIN FOLDER_STATUS 
+                    ON FOLDER_STATUS.id_status = STUDENTS.status
+                LEFT JOIN ARCHIVES
+                    ON STUDENTS.id_students = ARCHIVES.student_id
+                WHERE ARCHIVES.student_id IS NULL
             ";
         }
 
@@ -483,6 +522,21 @@ namespace folder_management
             INNER JOIN STATUS_HISTORY
                 ON HISTORY.history_status = STATUS_HISTORY.id_history_status
             ORDER BY HISTORY.history_date DESC
+            ";
+        }
+
+        private string queryArchiveFolder()
+        {
+            return @"
+            SELECT 
+                STUDENTS.student_number, 
+                STUDENTS.last_name,
+                STUDENTS.first_name,
+                STUDENTS.middle_name,
+                ARCHIVES.archive_date
+            FROM STUDENTS
+            INNER JOIN ARCHIVES
+	            ON STUDENTS.id_students = ARCHIVES.student_id
             ";
         }
 
