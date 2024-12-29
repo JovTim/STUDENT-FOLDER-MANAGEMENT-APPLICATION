@@ -419,6 +419,41 @@ namespace folder_management
             return output;
         }
 
+
+        public void insertArchive(string studentNumber)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
+            {
+                cnn.Open();
+                using (var transaction = cnn.BeginTransaction())
+                {
+                    try
+                    {
+                        using (IDbCommand cmd = cnn.CreateCommand())
+                        {
+                            cmd.CommandText = queryInsertArchive();
+                            cmd.Transaction = transaction;
+
+
+                            var paramStudentNumber = cmd.CreateParameter();
+                            paramStudentNumber.ParameterName = "@student_number";
+                            paramStudentNumber.Value = studentNumber;
+                            cmd.Parameters.Add(paramStudentNumber);
+
+                            cmd.ExecuteNonQuery();
+                        }
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show("There was an error when inserting to database!", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        throw;
+                    }
+                }
+            }
+        }
+
         private string loadConnectionString(string id = "Default")
         {
             return "Data Source=.\\studentFolderDb.db;Version=3;";
@@ -537,6 +572,16 @@ namespace folder_management
             FROM STUDENTS
             INNER JOIN ARCHIVES
 	            ON STUDENTS.id_students = ARCHIVES.student_id
+            ";
+        }
+
+        private string queryInsertArchive()
+        {
+            return @"
+            INSERT INTO ARCHIVES (student_id)
+                SELECT STUDENTS.id_students
+                FROM STUDENTS
+                WHERE student_number = @student_number;
             ";
         }
 

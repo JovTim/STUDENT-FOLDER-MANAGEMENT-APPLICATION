@@ -38,6 +38,8 @@
             firstNameCol = new DataGridViewTextBoxColumn();
             middleName = new DataGridViewTextBoxColumn();
             dateCol = new DataGridViewTextBoxColumn();
+            deleteButton = new Button();
+            unarchiveButton = new Button();
             ((System.ComponentModel.ISupportInitialize)archiveList).BeginInit();
             SuspendLayout();
             // 
@@ -129,10 +131,30 @@
             dateCol.Name = "dateCol";
             dateCol.Width = 290;
             // 
+            // deleteButton
+            // 
+            deleteButton.Location = new Point(1246, 24);
+            deleteButton.Name = "deleteButton";
+            deleteButton.Size = new Size(77, 59);
+            deleteButton.TabIndex = 8;
+            deleteButton.Text = "🗑️";
+            deleteButton.UseVisualStyleBackColor = true;
+            // 
+            // unarchiveButton
+            // 
+            unarchiveButton.Location = new Point(1329, 24);
+            unarchiveButton.Name = "unarchiveButton";
+            unarchiveButton.Size = new Size(77, 59);
+            unarchiveButton.TabIndex = 9;
+            unarchiveButton.Text = "/\\";
+            unarchiveButton.UseVisualStyleBackColor = true;
+            // 
             // studentFolderArchiveControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(unarchiveButton);
+            Controls.Add(deleteButton);
             Controls.Add(archiveList);
             Name = "studentFolderArchiveControl";
             Size = new Size(1473, 740);
@@ -149,5 +171,7 @@
         private DataGridViewTextBoxColumn firstNameCol;
         private DataGridViewTextBoxColumn middleName;
         private DataGridViewTextBoxColumn dateCol;
+        private Button deleteButton;
+        private Button unarchiveButton;
     }
 }
