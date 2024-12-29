@@ -17,7 +17,7 @@ namespace folder_management
         public studentFolderArchiveControl()
         {
             InitializeComponent();
-            
+
             dataAccess = new sqliteDataAccess();
         }
 
@@ -50,9 +50,63 @@ namespace folder_management
             date: i[4]
             )).ToList();
 
-            foreach( var i in archiveInfo )
+            foreach (var i in archiveInfo)
             {
                 archiveList.Rows.Add(i.studentNumber, i.lastName.ToUpper(), i.firstName.ToUpper(), i.middleName.ToUpper(), i.date);
+            }
+        }
+
+        private void unarchiveButton_Click(object sender, EventArgs e)
+        {
+            if (archiveList.SelectedRows.Count == 1)
+            {
+                unarchiveButton.Enabled = true;
+                deleteButton.Enabled = true;
+                DataGridViewRow selectedRow = archiveList.SelectedRows[0];
+                string cellValue = selectedRow.Cells[0].Value?.ToString();
+                dataAccess.unarchiveFolder(cellValue);
+                MessageBox.Show($"Student {cellValue} has been unarchived!", "Archive Message", MessageBoxButtons.OK);
+
+                int selected = archiveList.SelectedRows[0].Index;
+                archiveList.Rows.RemoveAt(selected);
+
+
+
+            }
+            else
+            {
+                unarchiveButton.Enabled = false;
+                deleteButton.Enabled = false;
+            }
+            unarchiveButton.Enabled = true;
+            deleteButton.Enabled = true;
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to delete this folder?", "DELETE INFO", MessageBoxButtons.OKCancel );
+            if ( result == DialogResult.OK)
+            {
+                if (archiveList.SelectedRows.Count == 1)
+                {
+                    unarchiveButton.Enabled = true;
+                    deleteButton.Enabled = true;
+
+                    DataGridViewRow selectedRow = archiveList.SelectedRows[0];
+                    string cellValue = selectedRow.Cells[0].Value?.ToString();
+                    dataAccess.unarchiveFolder(cellValue);
+                    dataAccess.deleteFolder(cellValue);
+
+                    int selected = archiveList.SelectedRows[0].Index;
+                    archiveList.Rows.RemoveAt(selected);
+                }
+                else
+                {
+                    unarchiveButton.Enabled = false;
+                    deleteButton.Enabled = false;
+                }
+                unarchiveButton.Enabled = true;
+                deleteButton.Enabled = true;
             }
         }
     }

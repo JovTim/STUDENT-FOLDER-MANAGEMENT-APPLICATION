@@ -454,6 +454,72 @@ namespace folder_management
             }
         }
 
+        public void unarchiveFolder(string studentNumber)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
+            {
+                cnn.Open();
+                using (var transaction = cnn.BeginTransaction())
+                {
+                    try
+                    {
+                        using (IDbCommand cmd = cnn.CreateCommand())
+                        {
+                            cmd.CommandText = queryUnarchive();
+                            cmd.Transaction = transaction;
+
+                            var paramStudentNumber = cmd.CreateParameter();
+                            paramStudentNumber.ParameterName = "@student_number";
+                            paramStudentNumber.Value = studentNumber;
+                            cmd.Parameters.Add(paramStudentNumber);
+
+                            cmd.ExecuteNonQuery();
+                        }
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show("There was an error when updating database!", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        throw;
+                    }
+                }
+            }
+        }
+
+        public void deleteFolder(string studentNumber)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
+            {
+                cnn.Open();
+                using (var transaction = cnn.BeginTransaction())
+                {
+                    try
+                    {
+                        using (IDbCommand cmd = cnn.CreateCommand())
+                        {
+                            cmd.CommandText = queryDeleteFolder();
+                            cmd.Transaction = transaction;
+
+                            var paramStudentNumber = cmd.CreateParameter();
+                            paramStudentNumber.ParameterName = "@student_number";
+                            paramStudentNumber.Value = studentNumber;
+                            cmd.Parameters.Add(paramStudentNumber);
+
+                            cmd.ExecuteNonQuery();
+                        }
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show("There was an error when updating database!", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        throw;
+                    }
+                }
+            }
+        }
+
         private string loadConnectionString(string id = "Default")
         {
             return "Data Source=.\\studentFolderDb.db;Version=3;";
@@ -582,6 +648,26 @@ namespace folder_management
                 SELECT STUDENTS.id_students
                 FROM STUDENTS
                 WHERE student_number = @student_number;
+            ";
+        }
+
+        private string queryUnarchive()
+        {
+            return @"
+            DELETE FROM ARCHIVES
+            WHERE student_id = (
+            SELECT STUDENTS.id_students 
+            FROM STUDENTS
+            WHERE student_number = @student_number
+            );
+            ";
+        }
+
+        private string queryDeleteFolder()
+        {
+            return @"
+            DELETE FROM STUDENTS
+            WHERE student_number = @student_number;
             ";
         }
 
