@@ -124,7 +124,20 @@ namespace folder_management
 
         private void archiveStudent_Click(object sender, EventArgs e)
         {
+           if (listFolders.SelectedRows.Count == 1)
+           {
+                archiveStudent.Enabled = true;
+                DataGridViewRow selectedRow = listFolders.SelectedRows[0];
 
+                string cellValue = selectedRow.Cells[1].Value?.ToString();
+
+                MessageBox.Show($"You selected {cellValue}");
+           }
+            else
+            {
+                archiveStudent.Enabled = false;
+            }
+            archiveStudent.Enabled = true;
         }
 
         private void addStudent_Click(object sender, EventArgs e)
