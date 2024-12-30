@@ -346,7 +346,7 @@ namespace folder_management
             }
         }
 
-        public List<string[]> loadFolderHistory()
+        public List<string[]> loadFolderHistory(int pageSize, int currentIndex)
         {
             List<string[]> output = new List<string[]>();
             try
@@ -356,7 +356,7 @@ namespace folder_management
                     cnn.Open();
                     using (IDbCommand cmd = cnn.CreateCommand())
                     {
-                        cmd.CommandText = queryHistoryData();
+                        cmd.CommandText = queryHistoryData(pageSize, currentIndex);
                         using (IDataReader reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
@@ -607,9 +607,9 @@ namespace folder_management
             ";
         }
 
-        private string queryHistoryData()
+        private string queryHistoryData(int pageSize, int currentIndex)
         {
-            return @"
+            return $@"
             SELECT 
                 STUDENTS.student_number,
                 STUDENTS.last_name || ', ' || STUDENTS.first_name || ' ' || STUDENTS.middle_name AS full_name,
@@ -623,6 +623,7 @@ namespace folder_management
             INNER JOIN STATUS_HISTORY
                 ON HISTORY.history_status = STATUS_HISTORY.id_history_status
             ORDER BY HISTORY.history_date DESC
+            LIMIT {pageSize} OFFSET {(currentIndex - 1) * pageSize}
             ";
         }
 

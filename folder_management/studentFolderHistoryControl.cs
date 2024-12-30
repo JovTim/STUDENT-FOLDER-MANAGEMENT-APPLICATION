@@ -12,6 +12,8 @@ namespace folder_management
 {
     public partial class studentFolderHistoryControl : UserControl
     {
+        private const int pageSize = 10;
+        private int currentPageIndex = 1;
         private sqliteDataAccess dataAccess;
         public studentFolderHistoryControl()
         {
@@ -20,9 +22,15 @@ namespace folder_management
             dataAccess = new sqliteDataAccess();
         }
 
+        /*
+         -------------------------------------------------------------------------------------------------
+         TODO: ADD FUNCTIONALITIES TO PAGINATIONS.
+               BECAUSE I FUCKED UP THE DATASOURCE, I NEED TO CLEAR THE TABLE AND LOAD THE DATA AGAIN LMFAOO
+        ---------------------------------------------------------------------------------------------------
+         */
         private void studentFolderHistoryControl_Load(object sender, EventArgs e)
         {
-            //sampleData();
+            currentPageIndex = 1;
             historyFolderLoad();
         }
 
@@ -34,7 +42,7 @@ namespace folder_management
                 return;
             }
 
-            var historyFolderData = dataAccess.loadFolderHistory();
+            var historyFolderData = dataAccess.loadFolderHistory(pageSize, currentPageIndex);
 
             if (historyFolderData == null || historyFolderData.Count == 0)
             {
@@ -53,7 +61,7 @@ namespace folder_management
 
             foreach (var i in historyInfos)
             {
-                historyList.Rows.Add(i.studentNumber, i.fullName.ToUpper(),  i.historyType, i.historyDate, i.code, i.information);
+                historyList.Rows.Add(i.studentNumber, i.fullName.ToUpper(), i.historyType, i.historyDate, i.code, i.information);
             }
         }
 
@@ -84,6 +92,42 @@ namespace folder_management
                     row.DefaultCellStyle.BackColor = Color.White;
                 }
             }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex < pageSize)
+            {
+                currentPageIndex++;
+                historyList.Rows.Clear();
+                historyFolderLoad();
+            }
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                historyList.Rows.Clear();
+                historyFolderLoad();
+            }
+        }
+
+        private void btnFirst_Click(object sender, EventArgs e)
+        {
+
+            currentPageIndex = 1;
+            historyList.Rows.Clear();
+            historyFolderLoad();
+        }
+
+        // DISABLED FOR NOW
+        private void btnLast_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = pageSize;
+            historyList.Rows.Clear();
+            historyFolderLoad();
         }
     }
 }
