@@ -22,12 +22,7 @@ namespace folder_management
             dataAccess = new sqliteDataAccess();
         }
 
-        /*
-         -------------------------------------------------------------------------------------------------
-         TODO: ADD FUNCTIONALITIES TO PAGINATIONS.
-               BECAUSE I FUCKED UP THE DATASOURCE, I NEED TO CLEAR THE TABLE AND LOAD THE DATA AGAIN LMFAOO
-        ---------------------------------------------------------------------------------------------------
-         */
+
         private void studentFolderHistoryControl_Load(object sender, EventArgs e)
         {
             currentPageIndex = 1;
@@ -96,7 +91,7 @@ namespace folder_management
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            if (currentPageIndex < pageSize)
+            if (currentPageIndex < pageSize && historyList.RowCount >= 10)
             {
                 currentPageIndex++;
                 historyList.Rows.Clear();

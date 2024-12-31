@@ -38,6 +38,16 @@ namespace folder_management
             string profileUrl = programTools.convertToDownloadableLink(profileUrlTextBox.Text);
 
             dataAccess.insertFolder(profileUrl, studentNumberTextBox.Text, firstNameTextBox.Text, lastNameTextBox.Text, middleNameTextBox.Text, Convert.ToInt32(yearTextBox.Text), Convert.ToInt32(blockTextBox.Text), 1, codeTextBox.Text);
+
+            profileUrlTextBox.Text = String.Empty;
+            studentNumberTextBox.Text = String.Empty;
+            firstNameTextBox.Text = String.Empty;
+            lastNameTextBox.Text = String.Empty;
+            middleNameTextBox.Text = String.Empty;
+            yearTextBox.Text = String.Empty;
+            blockTextBox.Text = String.Empty;
+            codeTextBox.Text = String.Empty;
+
         }
     }
 }

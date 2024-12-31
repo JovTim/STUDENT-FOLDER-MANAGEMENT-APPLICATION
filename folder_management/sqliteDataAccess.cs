@@ -9,7 +9,7 @@ namespace folder_management
 {
     internal class sqliteDataAccess
     {
-        public List<string[]> loadFolderData()
+        public List<string[]> loadFolderData(int pageSize, int currentIndex)
         {
             List<string[]> output = new List<string[]>();
             try
@@ -19,7 +19,7 @@ namespace folder_management
                     cnn.Open();
                     using (IDbCommand cmd = cnn.CreateCommand())
                     {
-                        cmd.CommandText = folderData();
+                        cmd.CommandText = folderData(pageSize, currentIndex);
                         using (IDataReader reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
@@ -384,7 +384,7 @@ namespace folder_management
             return output;
         }
 
-        public List<string[]> loadArchiveFolder()
+        public List<string[]> loadArchiveFolder(int pageSize, int currentIndex)
         {
             List<string[]> output = new List<string[]>();
             try
@@ -394,7 +394,7 @@ namespace folder_management
                     cnn.Open();
                     using (IDbCommand cmd = cnn.CreateCommand())
                     {
-                        cmd.CommandText = queryArchiveFolder();
+                        cmd.CommandText = queryArchiveFolder(pageSize, currentIndex);
                         using (IDataReader reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
@@ -527,9 +527,9 @@ namespace folder_management
 
 
 
-        private string folderData()
+        private string folderData(int pageSize, int currentIndex)
         {
-            return @"
+            return $@"
                 SELECT 
                     STUDENTS.profile_link, 
                     STUDENTS.student_number, 
@@ -544,6 +544,8 @@ namespace folder_management
                 LEFT JOIN ARCHIVES
                     ON STUDENTS.id_students = ARCHIVES.student_id
                 WHERE ARCHIVES.student_id IS NULL
+                ORDER BY year, block, full_name
+                LIMIT {pageSize} OFFSET {(currentIndex - 1) * pageSize};
             ";
         }
 
@@ -627,9 +629,9 @@ namespace folder_management
             ";
         }
 
-        private string queryArchiveFolder()
+        private string queryArchiveFolder(int pageSize, int currentIndex)
         {
-            return @"
+            return $@"
             SELECT 
                 STUDENTS.student_number, 
                 STUDENTS.last_name,
@@ -639,6 +641,7 @@ namespace folder_management
             FROM STUDENTS
             INNER JOIN ARCHIVES
 	            ON STUDENTS.id_students = ARCHIVES.student_id
+            LIMIT {pageSize} OFFSET {(currentIndex - 1) * pageSize}
             ";
         }
 

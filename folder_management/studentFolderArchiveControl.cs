@@ -14,6 +14,8 @@ namespace folder_management
     public partial class studentFolderArchiveControl : UserControl
     {
         sqliteDataAccess dataAccess;
+        private const int pageSize = 10;
+        private int currentPageIndex = 1;
         public studentFolderArchiveControl()
         {
             InitializeComponent();
@@ -34,7 +36,7 @@ namespace folder_management
                 return;
             }
 
-            var archive = dataAccess.loadArchiveFolder();
+            var archive = dataAccess.loadArchiveFolder(pageSize, currentPageIndex);
 
             if (archive == null || archive.Count == 0)
             {
@@ -84,8 +86,8 @@ namespace folder_management
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Are you sure you want to delete this folder?", "DELETE INFO", MessageBoxButtons.OKCancel );
-            if ( result == DialogResult.OK)
+            DialogResult result = MessageBox.Show("Are you sure you want to delete this folder?", "DELETE INFO", MessageBoxButtons.OKCancel);
+            if (result == DialogResult.OK)
             {
                 if (archiveList.SelectedRows.Count == 1)
                 {
@@ -107,6 +109,26 @@ namespace folder_management
                 }
                 unarchiveButton.Enabled = true;
                 deleteButton.Enabled = true;
+            }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex < pageSize && archiveList.RowCount >= 10)
+            {
+                currentPageIndex++;
+                archiveList.Rows.Clear();
+                loadArchive();
+            }
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                archiveList.Rows.Clear();
+                loadArchive();
             }
         }
     }

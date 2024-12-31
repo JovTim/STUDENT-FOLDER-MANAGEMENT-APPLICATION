@@ -13,7 +13,8 @@ namespace folder_management
 {
     public partial class studentFolderControl : UserControl
     {
-
+        private const int pageSize = 10;
+        private int currentPageIndex = 1;
         public event Action SwitchToNextControl;
         public event Action SwitchToEditControl;
         private sqliteDataAccess dataAccess;
@@ -87,7 +88,7 @@ namespace folder_management
             }
 
             // Load data from the database
-            var folderData = dataAccess.loadFolderData();
+            var folderData = dataAccess.loadFolderData(pageSize, currentPageIndex);
 
             if (folderData == null || folderData.Count == 0)
             {
@@ -125,22 +126,22 @@ namespace folder_management
         // TODO: After Archive, refresh the form
         private void archiveStudent_Click(object sender, EventArgs e)
         {
-           if (listFolders.SelectedRows.Count == 1)
-           {
+            if (listFolders.SelectedRows.Count == 1)
+            {
                 archiveStudent.Enabled = true;
                 DataGridViewRow selectedRow = listFolders.SelectedRows[0];
 
                 string cellValue = selectedRow.Cells[1].Value?.ToString();
 
-                
+
                 dataAccess.insertArchive(cellValue);
 
                 MessageBox.Show($"Student {cellValue} has been archived!", "Archive Message", MessageBoxButtons.OK);
 
                 int selected = listFolders.SelectedRows[0].Index;
                 listFolders.Rows.RemoveAt(selected);
-                
-           }
+
+            }
             else
             {
                 archiveStudent.Enabled = false;
@@ -276,7 +277,7 @@ namespace folder_management
 
         private void listFolders_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow clickedRow = listFolders.Rows[e.RowIndex];
@@ -288,6 +289,34 @@ namespace folder_management
                 //MessageBox.Show($"You double-clicked on row {e.RowIndex}, value: {cellValue}");
             }
             SwitchToEditControl?.Invoke();
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex < pageSize && listFolders.RowCount >= 10)
+            {
+                currentPageIndex++;
+                listFolders.Rows.Clear();
+                sampleDateLoad();
+
+            }
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                listFolders.Rows.Clear();
+                sampleDateLoad();
+            }
+        }
+
+        private void btnFirst_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = 1;
+            listFolders.Rows.Clear();
+            sampleDateLoad();
         }
     }
 }
