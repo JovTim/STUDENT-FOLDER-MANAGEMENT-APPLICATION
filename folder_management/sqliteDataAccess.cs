@@ -9,6 +9,7 @@ namespace folder_management
 {
     internal class sqliteDataAccess
     {
+        programTools tools = new programTools();
         public List<string[]> loadFolderData(int pageSize, int currentIndex)
         {
             List<string[]> output = new List<string[]>();
@@ -564,6 +565,50 @@ namespace folder_management
             }
         }
 
+
+        public void checkEncodeDates()
+        {
+            string endDate = DateTime.Now.ToString("yyyy-MM-dd"); // Example date
+            var updates = new List<(string studentNumber, int status)>();
+
+            using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
+            {
+                cnn.Open();
+                using (IDbCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandText = queryEncodedFolders();
+                    using (IDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var studentNumber = reader.GetString(0);
+                            string startDate = reader.GetString(1);
+
+                            if (DateTime.TryParse(startDate, out DateTime start) && DateTime.TryParse(endDate, out DateTime end))
+                            {
+                                bool monthDifference = tools.getMonthDifference(start, end);
+                                if (monthDifference)
+                                {
+                                    updates.Add((studentNumber, 3));
+                                    Console.WriteLine($"{studentNumber} is missing");
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"{studentNumber} is not missing");
+                                }
+                            }
+                        }
+                    }
+                }
+                cnn.Close();
+            }
+            // Perform batch update
+            foreach (var (studentNumber, status) in updates)
+            {
+                updateFolderStatus(studentNumber, status);
+            }
+        }
+
         private string loadConnectionString(string id = "Default")
         {
             return "Data Source=.\\studentFolderDb.db;Version=3;";
@@ -739,6 +784,16 @@ namespace folder_management
             DELETE FROM STUDENTS
             WHERE student_number = @student_number;
             ";
+        }
+
+        private string queryEncodedFolders()
+        {
+            return @"
+                    SELECT STUDENTS.student_number, ENCODING_LOG.encoding_date
+                    FROM ENCODING_LOG
+                    INNER JOIN STUDENTS
+	                    ON ENCODING_LOG.encoded_folder = STUDENTS.id_students;
+                    ";
         }
 
     }

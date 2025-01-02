@@ -14,5 +14,19 @@ namespace folder_management
 
             return $"https://drive.google.com/uc?export=download&id={splitted[5]}";
         }
+
+        public bool getMonthDifference(DateTime start, DateTime end)
+        {
+            int yearDiff = end.Year - start.Year;
+            int monthDiff = end.Month - start.Month;
+
+            int difference = yearDiff * 12 + monthDiff;
+
+            if (difference >= 2)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
