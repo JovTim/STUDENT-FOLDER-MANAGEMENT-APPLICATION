@@ -49,6 +49,50 @@ namespace folder_management
         }
 
 
+        public List<string[]> loadFolderDataStudentNumber(string id)
+        {
+            List<string[]> output = new List<string[]>();
+            try
+            {
+                using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
+                {
+                    cnn.Open();
+                    using (IDbCommand cmd = cnn.CreateCommand())
+                    {
+                        cmd.CommandText = queryFolderDataStudentNumber();
+                        var paramId = cmd.CreateParameter();
+                        paramId.ParameterName = "@studentNumber";
+                        paramId.Value = id;
+                        cmd.Parameters.Add(paramId);
+
+                        using (IDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var profile_link = reader.GetString(0);
+                                var student_number = reader.GetString(1);
+                                var full_name = reader.GetString(2);
+                                var year = reader.GetString(3);
+                                var block = reader.GetString(4);
+                                var status = reader.GetString(5);
+                                var code = reader.GetString(6);
+
+                                string[] studentFolderInformation = { profile_link, student_number, full_name, year, block, status, code };
+                                output.Add(studentFolderInformation);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading folder data: {ex.Message}");
+                MessageBox.Show($"Error loading folder data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return output;
+        }
+
+
         public void insertFolder(string profileLink, string studentNumber, string first_name, string last_name, string middle_name, int year, int block, int status, string code)
         {
             using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
@@ -547,6 +591,28 @@ namespace folder_management
                 ORDER BY year, block, full_name
                 LIMIT {pageSize} OFFSET {(currentIndex - 1) * pageSize};
             ";
+        }
+
+        private string queryFolderDataStudentNumber()
+        {
+            return @"
+                    SELECT 
+                        STUDENTS.profile_link, 
+                        STUDENTS.student_number, 
+                        STUDENTS.last_name || ', ' || STUDENTS.first_name || ' ' || STUDENTS.middle_name AS full_name,
+                        'YEAR ' || STUDENTS.year AS year, 
+                        'BLOCK ' || STUDENTS.block AS block, 
+                        FOLDER_STATUS.status_type, 
+                        STUDENTS.code
+                    FROM STUDENTS
+                    LEFT JOIN FOLDER_STATUS 
+                        ON FOLDER_STATUS.id_status = STUDENTS.status
+                    LEFT JOIN ARCHIVES
+                        ON STUDENTS.id_students = ARCHIVES.student_id
+                    WHERE ARCHIVES.student_id IS NULL 
+                      AND student_number LIKE @studentNumber
+                    ORDER BY year, block, full_name
+                    ";
         }
 
         private string addFolderData()

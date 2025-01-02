@@ -39,12 +39,55 @@ namespace folder_management
 
         private void searchBar_TextChanged(object sender, EventArgs e)
         {
-            /*
-            if (string.IsNullOrEmpty(searchBar.Text))
+            if (searchBar.Text.Length >= 2)
             {
-                searchBarText.Visible = true;
+                listFolders.Rows.Clear();
+                loadFolderIDData();
             }
-            */
+        }
+
+        // loading the ID number based on the search bar
+        private async void loadFolderIDData()
+        {
+            string cachePath = "cacheImage";
+            Directory.CreateDirectory(cachePath);
+
+            if (dataAccess == null)
+            {
+                MessageBox.Show("Data access object is not initialized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Load data from the database
+            var folderData = dataAccess.loadFolderDataStudentNumber($"%{searchBar.Text}%");
+
+            if (folderData == null || folderData.Count == 0)
+            {
+                MessageBox.Show("No data available.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Map the folder data to a list of tuples
+            var studentInfos = folderData.Select(i => (
+                Url: i[0],
+                studentNo: i[1],
+                studentName: i[2].ToUpper(),
+                Year: i[3],
+                Block: i[4],
+                Status: i[5],
+                Code: i[6]
+            )).ToList();
+
+            // Loop through the student information and add it to the DataGridView
+            foreach (var i in studentInfos)
+            {
+                var image = await CacheAndLoadImageAsync(i.Url, cachePath);
+                listFolders.Rows.Add(image, i.studentNo, i.studentName, i.Year, i.Block, i.Status, i.Code);
+            }
+
+            // Populate Status Column
+            string[] status = { "OFFICE", "ENCODING", "MISSING" };
+            statusCol.DataSource = status;
         }
 
         private void searchBarText_Click(object sender, EventArgs e)
