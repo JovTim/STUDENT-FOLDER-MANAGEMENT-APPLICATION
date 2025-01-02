@@ -49,7 +49,7 @@ namespace folder_management
         }
 
 
-        public List<string[]> loadFolderDataStudentNumber(string id)
+        public List<string[]> loadFolderDataStudent(string value)
         {
             List<string[]> output = new List<string[]>();
             try
@@ -59,11 +59,11 @@ namespace folder_management
                     cnn.Open();
                     using (IDbCommand cmd = cnn.CreateCommand())
                     {
-                        cmd.CommandText = queryFolderDataStudentNumber();
-                        var paramId = cmd.CreateParameter();
-                        paramId.ParameterName = "@studentNumber";
-                        paramId.Value = id;
-                        cmd.Parameters.Add(paramId);
+                        cmd.CommandText = queryFolderDataStudent();
+                        var paramValue = cmd.CreateParameter();
+                        paramValue.ParameterName = "@value";
+                        paramValue.Value = value;
+                        cmd.Parameters.Add(paramValue);
 
                         using (IDataReader reader = cmd.ExecuteReader())
                         {
@@ -593,7 +593,7 @@ namespace folder_management
             ";
         }
 
-        private string queryFolderDataStudentNumber()
+        private string queryFolderDataStudent()
         {
             return @"
                     SELECT 
@@ -609,9 +609,9 @@ namespace folder_management
                         ON FOLDER_STATUS.id_status = STUDENTS.status
                     LEFT JOIN ARCHIVES
                         ON STUDENTS.id_students = ARCHIVES.student_id
-                    WHERE ARCHIVES.student_id IS NULL 
-                      AND student_number LIKE @studentNumber
-                    ORDER BY year, block, full_name
+                    WHERE ARCHIVES.student_id IS NULL AND (student_number LIKE @value 
+                    OR full_name LIKE @value)
+                    ORDER BY year, block, full_name;
                     ";
         }
 

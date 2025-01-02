@@ -59,7 +59,7 @@ namespace folder_management
             }
 
             // Load data from the database
-            var folderData = dataAccess.loadFolderDataStudentNumber($"%{searchBar.Text}%");
+            var folderData = dataAccess.loadFolderDataStudent($"%{searchBar.Text}%");
 
             if (folderData == null || folderData.Count == 0)
             {
