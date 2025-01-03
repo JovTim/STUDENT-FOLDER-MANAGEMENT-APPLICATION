@@ -30,7 +30,7 @@ namespace folder_management
         public dashBoardMain()
         {
             InitializeComponent();
-            dataAccess = new sqliteDataAccess();    
+            dataAccess = new sqliteDataAccess();
         }
 
         private void dashBoardMain_Load(object sender, EventArgs e)
@@ -41,6 +41,8 @@ namespace folder_management
                 isCheckFoldersCalled = true;
             }
             panelRoundEdges();
+
+            loadStats();
         }
 
 
@@ -80,6 +82,73 @@ namespace folder_management
 
             panel10.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panel10.Width,
             panel10.Height, 30, 30));
+
+        }
+
+        public void loadStats()
+        {
+            totalFolders.Text = dataAccess.totalFolders().ToString();
+            officeFolders.Text = dataAccess.totalOfficeFolders().ToString();
+            encodingFolders.Text = dataAccess.totalEncodingFolders().ToString();
+            missingFolders.Text = dataAccess.totalMissingFolders().ToString();
+            archivedFolders.Text = dataAccess.totalArchivedFolders().ToString();
+
+            loadTotalFirst();
+            loadTotalSecond();
+            loadTotalThird();
+            loadTotalFourth();
+            loadTotalIrregular();
+        }
+
+
+        private void loadTotalFirst()
+        {
+            List<int> firstData = dataAccess.totalFirstYear();
+
+            totalFirstYear.Text = firstData[0].ToString();
+            firstYearOffice.Text = firstData[1].ToString();
+            firstYearEncoding.Text = firstData[2].ToString();
+            firstYearMissing.Text = firstData[3].ToString();
+        }
+
+        private void loadTotalSecond()
+        {
+            List<int> secondData = dataAccess.totalSecondYear();
+
+            totalSecondYear.Text = secondData[0].ToString();
+            secondYearOffice.Text = secondData[1].ToString();
+            secondYearEncoding.Text = secondData[2].ToString();
+            secondYearMissing.Text = secondData[3].ToString();
+        }
+
+        private void loadTotalThird()
+        {
+            List<int> thirdData = dataAccess.totalThirdYear();
+
+            totalThirdYear.Text = thirdData[0].ToString();
+            thirdYearOffice.Text = thirdData[1].ToString();
+            thirdYearEncoding.Text = thirdData[2].ToString();
+            thirdYearMissing.Text = thirdData[3].ToString();
+        }
+
+        private void loadTotalFourth()
+        {
+            List<int> fourthData = dataAccess.totalFourthYear();
+
+            totalFourthYear.Text = fourthData[0].ToString();
+            fourthYearOffice.Text = fourthData[1].ToString();
+            fourthYearEncoding.Text = fourthData[2].ToString();
+            fourthYearMissing.Text = fourthData[3].ToString();
+        }
+
+        private void loadTotalIrregular()
+        {
+            List<int> irregularData = dataAccess.totalIrregular();
+
+            totalIrregular.Text = irregularData[0].ToString();
+            irregOffice.Text = irregularData[1].ToString();
+            irregEncoding.Text = irregularData[2].ToString();
+            irregMissing.Text = irregularData[3].ToString();
         }
     }
 }

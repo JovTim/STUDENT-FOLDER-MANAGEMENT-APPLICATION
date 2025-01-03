@@ -1,15 +1,23 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Security.AccessControl;
 using System.Security.Cryptography;
+using System.Security.Permissions;
 
 namespace folder_management
 {
     internal class sqliteDataAccess
     {
         programTools tools = new programTools();
+
+        private string loadConnectionString(string id = "Default")
+        {
+            return "Data Source=.\\studentFolderDb.db;Version=3;";
+        }
+
         public List<string[]> loadFolderData(int pageSize, int currentIndex)
         {
             List<string[]> output = new List<string[]>();
@@ -442,6 +450,7 @@ namespace folder_management
                         cmd.CommandText = queryArchiveFolder(pageSize, currentIndex);
                         using (IDataReader reader = cmd.ExecuteReader())
                         {
+                            
                             while (reader.Read())
                             {
                                 var studentNumber = reader.GetString(0);
@@ -608,12 +617,6 @@ namespace folder_management
                 updateFolderStatus(studentNumber, status);
             }
         }
-
-        private string loadConnectionString(string id = "Default")
-        {
-            return "Data Source=.\\studentFolderDb.db;Version=3;";
-        }
-
 
 
         private string folderData(int pageSize, int currentIndex)
@@ -793,6 +796,358 @@ namespace folder_management
                     FROM ENCODING_LOG
                     INNER JOIN STUDENTS
 	                    ON ENCODING_LOG.encoded_folder = STUDENTS.id_students;
+                    ";
+        }
+
+
+        /*
+------------------------------------------------------------------------------------------------------------------
+                                        THIS IS SECTION IS FOR THE SCALARS
+------------------------------------------------------------------------------------------------------------------
+         */
+
+        public int totalFolders()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
+            {
+                cnn.Open();
+                using (IDbCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandText = queryTotalFolders();
+                    int totalCount = cnn.ExecuteScalar<int>(cmd.CommandText);
+
+                    return totalCount;
+                }
+            }
+        }
+
+        public int totalOfficeFolders()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
+            {
+                cnn.Open();
+                using (IDbCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandText = queryTotalOfficeFolders();
+                    int totalCount = cnn.ExecuteScalar<int>(cmd.CommandText);
+
+                    return totalCount;
+                }
+            }
+        }
+
+        public int totalEncodingFolders()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
+            {
+                cnn.Open();
+                using (IDbCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandText = queryTotalEncodingFolders();
+                    int totalCount = cnn.ExecuteScalar<int>(cmd.CommandText);
+
+                    return totalCount;
+                }
+            }
+        }
+
+        public int totalMissingFolders()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
+            {
+                cnn.Open();
+                using (IDbCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandText = queryTotalMissingFolders();
+                    int totalCount = cnn.ExecuteScalar<int>(cmd.CommandText);
+
+                    return totalCount;
+                }
+            }
+        }
+
+        public int totalArchivedFolders()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
+            {
+                cnn.Open();
+                using (IDbCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandText = queryTotalArchivedFolders();
+                    int totalCount = cnn.ExecuteScalar<int>(cmd.CommandText);
+
+                    return totalCount;
+                }
+            }
+        }
+
+        public List<int> totalFirstYear()
+        {
+            List<int> result = new List<int>();
+            using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
+            {
+                cnn.Open();
+                using (IDbCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandText = queryTotalFirstYear();
+                    using (IDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            result.Add(reader.GetInt32(0));
+                            result.Add(reader.GetInt32(1));
+                            result.Add(reader.GetInt32(2));
+                            result.Add(reader.GetInt32(3));
+                        }
+                    }
+
+                }
+            }
+
+            return result;
+        }
+
+        public List<int> totalSecondYear()
+        {
+            List<int> result = new List<int>();
+            using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
+            {
+                cnn.Open();
+                using (IDbCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandText = queryTotalSecondYear();
+                    using (IDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            result.Add(reader.GetInt32(0));
+                            result.Add(reader.GetInt32(1));
+                            result.Add(reader.GetInt32(2));
+                            result.Add(reader.GetInt32(3));
+                        }
+                    }
+
+                }
+            }
+
+            return result;
+        }
+
+        public List<int> totalThirdYear()
+        {
+            List<int> result = new List<int>();
+            using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
+            {
+                cnn.Open();
+                using (IDbCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandText = queryTotalThirdYear();
+                    using (IDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            result.Add(reader.GetInt32(0));
+                            result.Add(reader.GetInt32(1));
+                            result.Add(reader.GetInt32(2));
+                            result.Add(reader.GetInt32(3));
+                        }
+                    }
+
+                }
+            }
+
+            return result;
+        }
+
+        public List<int> totalFourthYear()
+        {
+            List<int> result = new List<int>();
+            using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
+            {
+                cnn.Open();
+                using (IDbCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandText = queryTotalFourthYear();
+                    using (IDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            result.Add(reader.GetInt32(0));
+                            result.Add(reader.GetInt32(1));
+                            result.Add(reader.GetInt32(2));
+                            result.Add(reader.GetInt32(3));
+                        }
+                    }
+
+                }
+            }
+
+            return result;
+        }
+
+        public List<int> totalIrregular()
+        {
+            List<int> result = new List<int>();
+            using (IDbConnection cnn = new SQLiteConnection(loadConnectionString()))
+            {
+                cnn.Open();
+                using (IDbCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandText = queryTotalIrregular();
+                    using (IDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            result.Add(reader.GetInt32(0));
+                            result.Add(reader.GetInt32(1));
+                            result.Add(reader.GetInt32(2));
+                            result.Add(reader.GetInt32(3));
+                        }
+                    }
+
+                }
+            }
+
+            return result;
+        }
+
+
+        private string queryTotalFolders()
+        {
+            return "SELECT COUNT(*) FROM STUDENTS";
+        }
+
+        private string queryTotalOfficeFolders()
+        {
+            return @"
+                    SELECT 
+                        COUNT(*)
+                    FROM STUDENTS
+                    LEFT JOIN FOLDER_STATUS 
+                        ON FOLDER_STATUS.id_status = STUDENTS.status
+                    LEFT JOIN ARCHIVES
+                        ON STUDENTS.id_students = ARCHIVES.student_id
+                    WHERE ARCHIVES.student_id IS NULL AND STUDENTS.status = 1;
+                    ";
+        }
+
+        private string queryTotalEncodingFolders()
+        {
+            return @"
+                    SELECT 
+                        COUNT(*)
+                    FROM STUDENTS
+                    LEFT JOIN FOLDER_STATUS 
+                        ON FOLDER_STATUS.id_status = STUDENTS.status
+                    LEFT JOIN ARCHIVES
+                        ON STUDENTS.id_students = ARCHIVES.student_id
+                    WHERE ARCHIVES.student_id IS NULL AND STUDENTS.status = 2;
+                    ";
+        }
+
+        private string queryTotalMissingFolders()
+        {
+            return @"
+                    SELECT 
+                        COUNT(*)
+                    FROM STUDENTS
+                    LEFT JOIN FOLDER_STATUS 
+                        ON FOLDER_STATUS.id_status = STUDENTS.status
+                    LEFT JOIN ARCHIVES
+                        ON STUDENTS.id_students = ARCHIVES.student_id
+                    WHERE ARCHIVES.student_id IS NULL AND STUDENTS.status = 3;
+                    ";
+        }
+
+        private string queryTotalArchivedFolders()
+        {
+            return "SELECT COUNT(*) FROM ARCHIVES";
+        }
+
+        private string queryTotalFirstYear()
+        {
+            return @"
+                    SELECT 
+                        COUNT(*) AS total_first_year,
+                        COUNT(CASE WHEN STUDENTS.status = 1 THEN 1 END) AS office,
+                        COUNT(CASE WHEN STUDENTS.status = 2 THEN 1 END) AS encoding,
+                        COUNT(CASE WHEN STUDENTS.status = 3 THEN 1 END) AS missing
+                    FROM STUDENTS
+                    LEFT JOIN FOLDER_STATUS 
+                        ON FOLDER_STATUS.id_status = STUDENTS.status
+                    LEFT JOIN ARCHIVES
+                        ON STUDENTS.id_students = ARCHIVES.student_id
+                    WHERE ARCHIVES.student_id IS NULL AND STUDENTS.year = 1;
+
+                    ";
+        }
+
+        private string queryTotalSecondYear()
+        {
+            return @"
+                    SELECT 
+                        COUNT(*) AS total_second_year,
+                        COUNT(CASE WHEN STUDENTS.status = 1 THEN 1 END) AS office,
+                        COUNT(CASE WHEN STUDENTS.status = 2 THEN 1 END) AS encoding,
+                        COUNT(CASE WHEN STUDENTS.status = 3 THEN 1 END) AS missing
+                    FROM STUDENTS
+                    LEFT JOIN FOLDER_STATUS 
+                        ON FOLDER_STATUS.id_status = STUDENTS.status
+                    LEFT JOIN ARCHIVES
+                        ON STUDENTS.id_students = ARCHIVES.student_id
+                    WHERE ARCHIVES.student_id IS NULL AND STUDENTS.year = 2;
+                    ";
+        }
+
+        private string queryTotalThirdYear()
+        {
+            return @"
+                    SELECT 
+                        COUNT(*) AS total_second_year,
+                        COUNT(CASE WHEN STUDENTS.status = 1 THEN 1 END) AS office,
+                        COUNT(CASE WHEN STUDENTS.status = 2 THEN 1 END) AS encoding,
+                        COUNT(CASE WHEN STUDENTS.status = 3 THEN 1 END) AS missing
+                    FROM STUDENTS
+                    LEFT JOIN FOLDER_STATUS 
+                        ON FOLDER_STATUS.id_status = STUDENTS.status
+                    LEFT JOIN ARCHIVES
+                        ON STUDENTS.id_students = ARCHIVES.student_id
+                    WHERE ARCHIVES.student_id IS NULL AND STUDENTS.year = 3;
+                    ";
+        }
+
+        private string queryTotalFourthYear()
+        {
+            return @"
+                    SELECT 
+                        COUNT(*) AS total_second_year,
+                        COUNT(CASE WHEN STUDENTS.status = 1 THEN 1 END) AS office,
+                        COUNT(CASE WHEN STUDENTS.status = 2 THEN 1 END) AS encoding,
+                        COUNT(CASE WHEN STUDENTS.status = 3 THEN 1 END) AS missing
+                    FROM STUDENTS
+                    LEFT JOIN FOLDER_STATUS 
+                        ON FOLDER_STATUS.id_status = STUDENTS.status
+                    LEFT JOIN ARCHIVES
+                        ON STUDENTS.id_students = ARCHIVES.student_id
+                    WHERE ARCHIVES.student_id IS NULL AND STUDENTS.year = 4;
+                    ";
+        }
+
+        private string queryTotalIrregular()
+        {
+            return @"
+                    SELECT 
+                        COUNT(*) AS total_second_year,
+                        COUNT(CASE WHEN STUDENTS.status = 1 THEN 1 END) AS office,
+                        COUNT(CASE WHEN STUDENTS.status = 2 THEN 1 END) AS encoding,
+                        COUNT(CASE WHEN STUDENTS.status = 3 THEN 1 END) AS missing
+                    FROM STUDENTS
+                    LEFT JOIN FOLDER_STATUS 
+                        ON FOLDER_STATUS.id_status = STUDENTS.status
+                    LEFT JOIN ARCHIVES
+                        ON STUDENTS.id_students = ARCHIVES.student_id
+                    WHERE ARCHIVES.student_id IS NULL AND (STUDENTS.year > 4 OR STUDENTS.year = 0);
+
                     ";
         }
 
