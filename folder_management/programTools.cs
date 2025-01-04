@@ -55,6 +55,8 @@ namespace folder_management
 
         public bool validateName(string name)
         {
+            if (name.Length > 30) return false;
+
             var nameRegex = new Regex(@"^[a-zA-Z\s\-]+$");
 
             return nameRegex.IsMatch(name);
