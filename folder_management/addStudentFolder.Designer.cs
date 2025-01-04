@@ -44,20 +44,9 @@
             label7 = new Label();
             codeTextBox = new TextBox();
             label8 = new Label();
-            contentListsComboBox = new ComboBox();
-            label9 = new Label();
-            addNewContent = new TextBox();
-            contentLists = new ListView();
-            listContents = new ColumnHeader();
-            panel1 = new Panel();
-            photoPreviewBox = new PictureBox();
-            label10 = new Label();
             studentNumberTextBox = new TextBox();
             label11 = new Label();
             insertButton = new Button();
-            addContentButton = new Button();
-            panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)photoPreviewBox).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -91,7 +80,7 @@
             profileUrlTextBox.BorderStyle = BorderStyle.FixedSingle;
             profileUrlTextBox.Location = new Point(20, 119);
             profileUrlTextBox.Name = "profileUrlTextBox";
-            profileUrlTextBox.Size = new Size(526, 34);
+            profileUrlTextBox.Size = new Size(1001, 34);
             profileUrlTextBox.TabIndex = 15;
             // 
             // label2
@@ -107,7 +96,7 @@
             // firstNameTextBox
             // 
             firstNameTextBox.BorderStyle = BorderStyle.FixedSingle;
-            firstNameTextBox.Location = new Point(20, 267);
+            firstNameTextBox.Location = new Point(298, 191);
             firstNameTextBox.Name = "firstNameTextBox";
             firstNameTextBox.Size = new Size(251, 34);
             firstNameTextBox.TabIndex = 17;
@@ -115,7 +104,7 @@
             // lastNameTextBox
             // 
             lastNameTextBox.BorderStyle = BorderStyle.FixedSingle;
-            lastNameTextBox.Location = new Point(295, 267);
+            lastNameTextBox.Location = new Point(573, 191);
             lastNameTextBox.Name = "lastNameTextBox";
             lastNameTextBox.Size = new Size(251, 34);
             lastNameTextBox.TabIndex = 18;
@@ -124,7 +113,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(20, 236);
+            label3.Location = new Point(298, 160);
             label3.Name = "label3";
             label3.Size = new Size(130, 28);
             label3.TabIndex = 19;
@@ -134,7 +123,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(295, 236);
+            label4.Location = new Point(573, 160);
             label4.Name = "label4";
             label4.Size = new Size(125, 28);
             label4.TabIndex = 20;
@@ -143,7 +132,7 @@
             // middleNameTextBox
             // 
             middleNameTextBox.BorderStyle = BorderStyle.FixedSingle;
-            middleNameTextBox.Location = new Point(20, 347);
+            middleNameTextBox.Location = new Point(20, 270);
             middleNameTextBox.Name = "middleNameTextBox";
             middleNameTextBox.Size = new Size(251, 34);
             middleNameTextBox.TabIndex = 21;
@@ -152,7 +141,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(20, 316);
+            label5.Location = new Point(20, 239);
             label5.Name = "label5";
             label5.Size = new Size(154, 28);
             label5.TabIndex = 22;
@@ -161,7 +150,7 @@
             // yearTextBox
             // 
             yearTextBox.BorderStyle = BorderStyle.FixedSingle;
-            yearTextBox.Location = new Point(295, 347);
+            yearTextBox.Location = new Point(298, 270);
             yearTextBox.Name = "yearTextBox";
             yearTextBox.Size = new Size(70, 34);
             yearTextBox.TabIndex = 23;
@@ -170,7 +159,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(295, 316);
+            label6.Location = new Point(298, 239);
             label6.Name = "label6";
             label6.Size = new Size(62, 28);
             label6.TabIndex = 24;
@@ -179,7 +168,7 @@
             // blockTextBox
             // 
             blockTextBox.BorderStyle = BorderStyle.FixedSingle;
-            blockTextBox.Location = new Point(384, 347);
+            blockTextBox.Location = new Point(387, 270);
             blockTextBox.Name = "blockTextBox";
             blockTextBox.Size = new Size(70, 34);
             blockTextBox.TabIndex = 25;
@@ -188,7 +177,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(384, 316);
+            label7.Location = new Point(387, 239);
             label7.Name = "label7";
             label7.Size = new Size(75, 28);
             label7.TabIndex = 26;
@@ -197,7 +186,7 @@
             // codeTextBox
             // 
             codeTextBox.BorderStyle = BorderStyle.FixedSingle;
-            codeTextBox.Location = new Point(476, 347);
+            codeTextBox.Location = new Point(479, 270);
             codeTextBox.Name = "codeTextBox";
             codeTextBox.Size = new Size(70, 34);
             codeTextBox.TabIndex = 27;
@@ -206,80 +195,11 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.Location = new Point(476, 316);
+            label8.Location = new Point(479, 239);
             label8.Name = "label8";
             label8.Size = new Size(65, 28);
             label8.TabIndex = 28;
             label8.Text = "CODE";
-            // 
-            // contentListsComboBox
-            // 
-            contentListsComboBox.FormattingEnabled = true;
-            contentListsComboBox.Location = new Point(20, 421);
-            contentListsComboBox.Name = "contentListsComboBox";
-            contentListsComboBox.Size = new Size(292, 36);
-            contentListsComboBox.TabIndex = 29;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.Location = new Point(20, 390);
-            label9.Name = "label9";
-            label9.Size = new Size(197, 28);
-            label9.TabIndex = 30;
-            label9.Text = "FOLDER CONTENTS";
-            // 
-            // addNewContent
-            // 
-            addNewContent.BorderStyle = BorderStyle.FixedSingle;
-            addNewContent.Location = new Point(20, 474);
-            addNewContent.Name = "addNewContent";
-            addNewContent.Size = new Size(292, 34);
-            addNewContent.TabIndex = 31;
-            // 
-            // contentLists
-            // 
-            contentLists.Columns.AddRange(new ColumnHeader[] { listContents });
-            contentLists.Location = new Point(20, 526);
-            contentLists.Name = "contentLists";
-            contentLists.Size = new Size(526, 176);
-            contentLists.TabIndex = 32;
-            contentLists.UseCompatibleStateImageBehavior = false;
-            contentLists.View = View.Details;
-            // 
-            // listContents
-            // 
-            listContents.Text = "FOLDER CONTENTS";
-            listContents.Width = 520;
-            // 
-            // panel1
-            // 
-            panel1.BackColor = SystemColors.ControlDark;
-            panel1.Controls.Add(photoPreviewBox);
-            panel1.Controls.Add(label10);
-            panel1.Location = new Point(644, 88);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(443, 364);
-            panel1.TabIndex = 33;
-            // 
-            // photoPreviewBox
-            // 
-            photoPreviewBox.Location = new Point(3, 31);
-            photoPreviewBox.Name = "photoPreviewBox";
-            photoPreviewBox.Size = new Size(437, 330);
-            photoPreviewBox.TabIndex = 35;
-            photoPreviewBox.TabStop = false;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label10.Location = new Point(3, 0);
-            label10.Name = "label10";
-            label10.Size = new Size(171, 28);
-            label10.TabIndex = 34;
-            label10.Text = "PHOTO PREVIEW";
             // 
             // studentNumberTextBox
             // 
@@ -314,34 +234,14 @@
             insertButton.UseVisualStyleBackColor = false;
             insertButton.Click += insertButton_Click;
             // 
-            // addContentButton
-            // 
-            addContentButton.BackColor = Color.FromArgb(92, 225, 230);
-            addContentButton.FlatAppearance.BorderColor = Color.FromArgb(92, 225, 230);
-            addContentButton.FlatAppearance.BorderSize = 0;
-            addContentButton.FlatStyle = FlatStyle.Flat;
-            addContentButton.Font = new Font("Bahnschrift SemiBold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            addContentButton.Location = new Point(350, 469);
-            addContentButton.Name = "addContentButton";
-            addContentButton.Size = new Size(104, 39);
-            addContentButton.TabIndex = 37;
-            addContentButton.Text = "ADD";
-            addContentButton.UseVisualStyleBackColor = false;
-            // 
             // addStudentFolder
             // 
             AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLight;
-            Controls.Add(addContentButton);
             Controls.Add(insertButton);
             Controls.Add(label11);
             Controls.Add(studentNumberTextBox);
-            Controls.Add(panel1);
-            Controls.Add(contentLists);
-            Controls.Add(addNewContent);
-            Controls.Add(label9);
-            Controls.Add(contentListsComboBox);
             Controls.Add(label8);
             Controls.Add(codeTextBox);
             Controls.Add(label7);
@@ -363,9 +263,6 @@
             Name = "addStudentFolder";
             Size = new Size(1104, 708);
             Load += addStudentFolder_Load;
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)photoPreviewBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -387,17 +284,8 @@
         private Label label7;
         private TextBox codeTextBox;
         private Label label8;
-        private ComboBox contentListsComboBox;
-        private Label label9;
-        private TextBox addNewContent;
-        private ListView contentLists;
-        private ColumnHeader listContents;
-        private Panel panel1;
-        private PictureBox photoPreviewBox;
-        private Label label10;
         private TextBox studentNumberTextBox;
         private Label label11;
         private Button insertButton;
-        private Button addContentButton;
     }
 }

@@ -15,11 +15,13 @@ namespace folder_management
     {
         public event Action? SwitchToMainControl;
         private sqliteDataAccess dataAccess;
+        private verificationTool verificationTool;
         public editStudentFolder()
         {
             InitializeComponent();
 
             dataAccess = new sqliteDataAccess();
+            verificationTool = new verificationTool();
         }
 
         private void editStudentFolder_Load(object sender, EventArgs e)
@@ -77,9 +79,19 @@ namespace folder_management
 
         private void updateButton_Click(object sender, EventArgs e)
         {
-            dataAccess.updateStudentFolderData(
-                Convert.ToInt32(hiddenID.Text), 
-                profileUrlTextBox.Text, 
+            if (ValidateInputs() && !ValidateInputs2())
+            {
+                /*
+                string profileUrl = string.IsNullOrWhiteSpace(profileUrlTextBox.Text)
+                    ? "https://drive.google.com/uc?export=download&id=1mVxkZkivUqkKST3CePQ72O93N135VHxw"
+                    : programTools.convertToDownloadableLink(profileUrlTextBox.Text);
+                */
+
+                string middleName = string.IsNullOrWhiteSpace(middleNameTextBox.Text) ? "-" : middleNameTextBox.Text;
+
+                dataAccess.updateStudentFolderData(
+                Convert.ToInt32(hiddenID.Text),
+                profileUrlTextBox.Text,
                 studentNumberTextBox.Text,
                 firstNameTextBox.Text,
                 lastNameTextBox.Text,
@@ -89,7 +101,29 @@ namespace folder_management
                 codeTextBox.Text
                 );
 
-            SwitchToMainControl?.Invoke();
+                SwitchToMainControl?.Invoke();
+            }
+            
+        }
+
+        private bool ValidateInputs()
+        {
+            return verificationTool.validateUrl(profileUrlTextBox.Text) &&
+                   verificationTool.validateName(firstNameTextBox.Text) &&
+                   verificationTool.validateName(lastNameTextBox.Text) &&
+                   verificationTool.validateName(middleNameTextBox.Text) &&
+                   verificationTool.validateNumber(yearTextBox.Text) &&
+                   verificationTool.validateNumber(blockTextBox.Text) &&
+                   verificationTool.validateCode(codeTextBox.Text);
+        }
+
+        private bool ValidateInputs2()
+        {
+            return string.IsNullOrWhiteSpace(firstNameTextBox.Text) &&
+                    string.IsNullOrWhiteSpace(lastNameTextBox.Text) &&
+                    string.IsNullOrWhiteSpace(yearTextBox.Text) &&
+                    string.IsNullOrWhiteSpace(blockTextBox.Text) &&
+                    string.IsNullOrWhiteSpace(codeTextBox.Text);
         }
     }
 }
