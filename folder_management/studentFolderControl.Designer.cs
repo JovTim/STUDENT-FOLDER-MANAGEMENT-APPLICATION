@@ -49,10 +49,8 @@
             addStudent = new Button();
             archiveStudent = new Button();
             toolTipArchive = new ToolTip(components);
-            btnLast = new Button();
             btnNext = new Button();
             btnPrev = new Button();
-            btnFirst = new Button();
             ((System.ComponentModel.ISupportInitialize)listFolders).BeginInit();
             SuspendLayout();
             // 
@@ -217,78 +215,72 @@
             // 
             // addStudent
             // 
-            addStudent.Location = new Point(926, 67);
+            addStudent.BackgroundImage = (Image)resources.GetObject("addStudent.BackgroundImage");
+            addStudent.BackgroundImageLayout = ImageLayout.Zoom;
+            addStudent.FlatAppearance.BorderSize = 0;
+            addStudent.FlatStyle = FlatStyle.Flat;
+            addStudent.Location = new Point(937, 70);
             addStudent.Name = "addStudent";
-            addStudent.Size = new Size(61, 48);
+            addStudent.Size = new Size(50, 48);
             addStudent.TabIndex = 6;
-            addStudent.Text = "+";
             toolTipArchive.SetToolTip(addStudent, "Add a new student folder");
             addStudent.UseVisualStyleBackColor = true;
             addStudent.Click += addStudent_Click;
             // 
             // archiveStudent
             // 
-            archiveStudent.Location = new Point(859, 67);
+            archiveStudent.BackColor = Color.Transparent;
+            archiveStudent.BackgroundImage = (Image)resources.GetObject("archiveStudent.BackgroundImage");
+            archiveStudent.BackgroundImageLayout = ImageLayout.Zoom;
+            archiveStudent.FlatAppearance.BorderSize = 0;
+            archiveStudent.FlatStyle = FlatStyle.Flat;
+            archiveStudent.Location = new Point(878, 70);
             archiveStudent.Name = "archiveStudent";
-            archiveStudent.Size = new Size(61, 48);
+            archiveStudent.Size = new Size(50, 48);
             archiveStudent.TabIndex = 7;
-            archiveStudent.Text = "\\/";
             toolTipArchive.SetToolTip(archiveStudent, "Archive student folder\r\n- will not delete the folder\r\n- you need to go to the archive tab to manually\r\ndelete the folder");
-            archiveStudent.UseVisualStyleBackColor = true;
+            archiveStudent.UseVisualStyleBackColor = false;
             archiveStudent.Click += archiveStudent_Click;
             // 
             // toolTipArchive
             // 
             toolTipArchive.Popup += toolTipArchive_Popup;
             // 
-            // btnLast
-            // 
-            btnLast.Enabled = false;
-            btnLast.Location = new Point(948, 636);
-            btnLast.Name = "btnLast";
-            btnLast.Size = new Size(61, 48);
-            btnLast.TabIndex = 18;
-            btnLast.Text = "LAST";
-            btnLast.UseVisualStyleBackColor = true;
-            // 
             // btnNext
             // 
-            btnNext.Location = new Point(881, 636);
+            btnNext.BackColor = Color.Transparent;
+            btnNext.BackgroundImage = (Image)resources.GetObject("btnNext.BackgroundImage");
+            btnNext.BackgroundImageLayout = ImageLayout.Zoom;
+            btnNext.FlatAppearance.BorderSize = 0;
+            btnNext.FlatStyle = FlatStyle.Flat;
+            btnNext.Location = new Point(937, 636);
             btnNext.Name = "btnNext";
-            btnNext.Size = new Size(61, 48);
+            btnNext.Size = new Size(53, 48);
             btnNext.TabIndex = 17;
-            btnNext.Text = "NEXT";
-            btnNext.UseVisualStyleBackColor = true;
+            btnNext.UseVisualStyleBackColor = false;
             btnNext.Click += btnNext_Click;
             // 
             // btnPrev
             // 
-            btnPrev.Location = new Point(814, 636);
+            btnPrev.BackColor = Color.Transparent;
+            btnPrev.BackgroundImage = (Image)resources.GetObject("btnPrev.BackgroundImage");
+            btnPrev.BackgroundImageLayout = ImageLayout.Zoom;
+            btnPrev.FlatAppearance.BorderSize = 0;
+            btnPrev.FlatStyle = FlatStyle.Flat;
+            btnPrev.Location = new Point(878, 636);
             btnPrev.Name = "btnPrev";
-            btnPrev.Size = new Size(61, 48);
+            btnPrev.Size = new Size(50, 48);
             btnPrev.TabIndex = 16;
-            btnPrev.Text = "PREV";
-            btnPrev.UseVisualStyleBackColor = true;
+            btnPrev.UseVisualStyleBackColor = false;
             btnPrev.Click += btnPrev_Click;
-            // 
-            // btnFirst
-            // 
-            btnFirst.Location = new Point(747, 636);
-            btnFirst.Name = "btnFirst";
-            btnFirst.Size = new Size(61, 48);
-            btnFirst.TabIndex = 15;
-            btnFirst.Text = "FIRST";
-            btnFirst.UseVisualStyleBackColor = true;
-            btnFirst.Click += btnFirst_Click;
             // 
             // studentFolderControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(btnLast);
+            BackColor = SystemColors.Control;
             Controls.Add(btnNext);
             Controls.Add(btnPrev);
-            Controls.Add(btnFirst);
             Controls.Add(archiveStudent);
             Controls.Add(addStudent);
             Controls.Add(listFolders);
@@ -316,9 +308,7 @@
         private DataGridViewTextBoxColumn blockCol;
         private DataGridViewComboBoxColumn statusCol;
         private DataGridViewTextBoxColumn codeCol;
-        private Button btnLast;
         private Button btnNext;
         private Button btnPrev;
-        private Button btnFirst;
     }
 }

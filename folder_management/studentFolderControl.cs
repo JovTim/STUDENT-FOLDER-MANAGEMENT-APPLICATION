@@ -354,12 +354,5 @@ namespace folder_management
                 sampleDateLoad();
             }
         }
-
-        private void btnFirst_Click(object sender, EventArgs e)
-        {
-            currentPageIndex = 1;
-            listFolders.Rows.Clear();
-            sampleDateLoad();
-        }
     }
 }

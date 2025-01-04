@@ -32,6 +32,7 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(studentFolderHistoryControl));
             historyList = new DataGridView();
             studentNoCol = new DataGridViewTextBoxColumn();
             studentNameCol = new DataGridViewTextBoxColumn();
@@ -39,9 +40,7 @@
             historyDateCol = new DataGridViewTextBoxColumn();
             codeCol = new DataGridViewTextBoxColumn();
             informationCol = new DataGridViewTextBoxColumn();
-            btnFirst = new Button();
             btnPrev = new Button();
-            btnLast = new Button();
             btnNext = new Button();
             ((System.ComponentModel.ISupportInitialize)historyList).BeginInit();
             SuspendLayout();
@@ -145,55 +144,40 @@
             informationCol.Name = "informationCol";
             informationCol.Width = 400;
             // 
-            // btnFirst
-            // 
-            btnFirst.Location = new Point(1089, 649);
-            btnFirst.Name = "btnFirst";
-            btnFirst.Size = new Size(72, 58);
-            btnFirst.TabIndex = 7;
-            btnFirst.Text = "FIRST";
-            btnFirst.UseVisualStyleBackColor = true;
-            btnFirst.Click += btnFirst_Click;
-            // 
             // btnPrev
             // 
-            btnPrev.Location = new Point(1167, 649);
+            btnPrev.BackColor = Color.Transparent;
+            btnPrev.BackgroundImage = (Image)resources.GetObject("btnPrev.BackgroundImage");
+            btnPrev.BackgroundImageLayout = ImageLayout.Zoom;
+            btnPrev.FlatAppearance.BorderSize = 0;
+            btnPrev.FlatStyle = FlatStyle.Flat;
+            btnPrev.Location = new Point(1278, 649);
             btnPrev.Name = "btnPrev";
-            btnPrev.Size = new Size(72, 58);
+            btnPrev.Size = new Size(50, 48);
             btnPrev.TabIndex = 8;
-            btnPrev.Text = "PREV";
-            btnPrev.UseVisualStyleBackColor = true;
+            btnPrev.UseVisualStyleBackColor = false;
             btnPrev.Click += btnPrev_Click;
-            // 
-            // btnLast
-            // 
-            btnLast.Enabled = false;
-            btnLast.Location = new Point(1323, 649);
-            btnLast.Name = "btnLast";
-            btnLast.Size = new Size(72, 58);
-            btnLast.TabIndex = 10;
-            btnLast.Text = "LAST";
-            btnLast.UseVisualStyleBackColor = true;
-            btnLast.Click += btnLast_Click;
             // 
             // btnNext
             // 
-            btnNext.Location = new Point(1245, 649);
+            btnNext.BackColor = Color.Transparent;
+            btnNext.BackgroundImage = (Image)resources.GetObject("btnNext.BackgroundImage");
+            btnNext.BackgroundImageLayout = ImageLayout.Zoom;
+            btnNext.FlatAppearance.BorderSize = 0;
+            btnNext.FlatStyle = FlatStyle.Flat;
+            btnNext.Location = new Point(1345, 649);
             btnNext.Name = "btnNext";
-            btnNext.Size = new Size(72, 58);
+            btnNext.Size = new Size(50, 48);
             btnNext.TabIndex = 9;
-            btnNext.Text = "NEXT";
-            btnNext.UseVisualStyleBackColor = true;
+            btnNext.UseVisualStyleBackColor = false;
             btnNext.Click += btnNext_Click;
             // 
             // studentFolderHistoryControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(btnLast);
             Controls.Add(btnNext);
             Controls.Add(btnPrev);
-            Controls.Add(btnFirst);
             Controls.Add(historyList);
             Name = "studentFolderHistoryControl";
             Size = new Size(1473, 740);
@@ -211,9 +195,7 @@
         private DataGridViewTextBoxColumn historyDateCol;
         private DataGridViewTextBoxColumn codeCol;
         private DataGridViewTextBoxColumn informationCol;
-        private Button btnFirst;
         private Button btnPrev;
-        private Button btnLast;
         private Button btnNext;
     }
 }

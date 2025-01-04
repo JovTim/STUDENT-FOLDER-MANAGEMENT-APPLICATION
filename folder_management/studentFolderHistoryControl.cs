@@ -108,21 +108,5 @@ namespace folder_management
                 historyFolderLoad();
             }
         }
-
-        private void btnFirst_Click(object sender, EventArgs e)
-        {
-
-            currentPageIndex = 1;
-            historyList.Rows.Clear();
-            historyFolderLoad();
-        }
-
-        // DISABLED FOR NOW
-        private void btnLast_Click(object sender, EventArgs e)
-        {
-            currentPageIndex = pageSize;
-            historyList.Rows.Clear();
-            historyFolderLoad();
-        }
     }
 }

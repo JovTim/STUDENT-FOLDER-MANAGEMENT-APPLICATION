@@ -32,6 +32,7 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(studentFolderArchiveControl));
             archiveList = new DataGridView();
             studentNoCol = new DataGridViewTextBoxColumn();
             lastNameCol = new DataGridViewTextBoxColumn();
@@ -40,10 +41,8 @@
             dateCol = new DataGridViewTextBoxColumn();
             deleteButton = new Button();
             unarchiveButton = new Button();
-            btnLast = new Button();
             btnNext = new Button();
             btnPrev = new Button();
-            btnFirst = new Button();
             ((System.ComponentModel.ISupportInitialize)archiveList).BeginInit();
             SuspendLayout();
             // 
@@ -137,71 +136,66 @@
             // 
             // deleteButton
             // 
-            deleteButton.Location = new Point(1246, 24);
+            deleteButton.BackColor = Color.Transparent;
+            deleteButton.BackgroundImage = (Image)resources.GetObject("deleteButton.BackgroundImage");
+            deleteButton.BackgroundImageLayout = ImageLayout.Zoom;
+            deleteButton.FlatAppearance.BorderSize = 0;
+            deleteButton.FlatStyle = FlatStyle.Flat;
+            deleteButton.Location = new Point(1292, 35);
             deleteButton.Name = "deleteButton";
-            deleteButton.Size = new Size(77, 59);
+            deleteButton.Size = new Size(50, 48);
             deleteButton.TabIndex = 8;
-            deleteButton.Text = "🗑️";
-            deleteButton.UseVisualStyleBackColor = true;
+            deleteButton.UseVisualStyleBackColor = false;
             deleteButton.Click += deleteButton_Click;
             // 
             // unarchiveButton
             // 
-            unarchiveButton.Location = new Point(1329, 24);
+            unarchiveButton.BackColor = Color.Transparent;
+            unarchiveButton.BackgroundImage = (Image)resources.GetObject("unarchiveButton.BackgroundImage");
+            unarchiveButton.BackgroundImageLayout = ImageLayout.Zoom;
+            unarchiveButton.FlatAppearance.BorderSize = 0;
+            unarchiveButton.FlatStyle = FlatStyle.Flat;
+            unarchiveButton.Location = new Point(1356, 35);
             unarchiveButton.Name = "unarchiveButton";
-            unarchiveButton.Size = new Size(77, 59);
+            unarchiveButton.Size = new Size(50, 48);
             unarchiveButton.TabIndex = 9;
-            unarchiveButton.Text = "/\\";
-            unarchiveButton.UseVisualStyleBackColor = true;
+            unarchiveButton.UseVisualStyleBackColor = false;
             unarchiveButton.Click += unarchiveButton_Click;
-            // 
-            // btnLast
-            // 
-            btnLast.Enabled = false;
-            btnLast.Location = new Point(1334, 657);
-            btnLast.Name = "btnLast";
-            btnLast.Size = new Size(72, 58);
-            btnLast.TabIndex = 14;
-            btnLast.Text = "LAST";
-            btnLast.UseVisualStyleBackColor = true;
             // 
             // btnNext
             // 
-            btnNext.Location = new Point(1256, 657);
+            btnNext.BackColor = Color.Transparent;
+            btnNext.BackgroundImage = (Image)resources.GetObject("btnNext.BackgroundImage");
+            btnNext.BackgroundImageLayout = ImageLayout.Zoom;
+            btnNext.FlatAppearance.BorderSize = 0;
+            btnNext.FlatStyle = FlatStyle.Flat;
+            btnNext.Location = new Point(1356, 657);
             btnNext.Name = "btnNext";
-            btnNext.Size = new Size(72, 58);
+            btnNext.Size = new Size(50, 48);
             btnNext.TabIndex = 13;
-            btnNext.Text = "NEXT";
-            btnNext.UseVisualStyleBackColor = true;
+            btnNext.UseVisualStyleBackColor = false;
             btnNext.Click += btnNext_Click;
             // 
             // btnPrev
             // 
-            btnPrev.Location = new Point(1178, 657);
+            btnPrev.BackColor = Color.Transparent;
+            btnPrev.BackgroundImage = (Image)resources.GetObject("btnPrev.BackgroundImage");
+            btnPrev.BackgroundImageLayout = ImageLayout.Zoom;
+            btnPrev.FlatAppearance.BorderSize = 0;
+            btnPrev.FlatStyle = FlatStyle.Flat;
+            btnPrev.Location = new Point(1292, 657);
             btnPrev.Name = "btnPrev";
-            btnPrev.Size = new Size(72, 58);
+            btnPrev.Size = new Size(50, 48);
             btnPrev.TabIndex = 12;
-            btnPrev.Text = "PREV";
-            btnPrev.UseVisualStyleBackColor = true;
+            btnPrev.UseVisualStyleBackColor = false;
             btnPrev.Click += btnPrev_Click;
-            // 
-            // btnFirst
-            // 
-            btnFirst.Location = new Point(1100, 657);
-            btnFirst.Name = "btnFirst";
-            btnFirst.Size = new Size(72, 58);
-            btnFirst.TabIndex = 11;
-            btnFirst.Text = "FIRST";
-            btnFirst.UseVisualStyleBackColor = true;
             // 
             // studentFolderArchiveControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(btnLast);
             Controls.Add(btnNext);
             Controls.Add(btnPrev);
-            Controls.Add(btnFirst);
             Controls.Add(unarchiveButton);
             Controls.Add(deleteButton);
             Controls.Add(archiveList);
@@ -222,9 +216,7 @@
         private DataGridViewTextBoxColumn dateCol;
         private Button deleteButton;
         private Button unarchiveButton;
-        private Button btnLast;
         private Button btnNext;
         private Button btnPrev;
-        private Button btnFirst;
     }
 }
