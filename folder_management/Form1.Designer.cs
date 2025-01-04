@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             mainFormTitle = new Label();
-            logoPlaceHolder = new Label();
             line1 = new Panel();
             panel4 = new Panel();
             panel3 = new Panel();
@@ -41,32 +41,23 @@
             historyButton = new Button();
             panel5 = new Panel();
             archiveButton = new Button();
+            pictureBox1 = new PictureBox();
+            panel6 = new Panel();
+            panel7 = new Panel();
             line1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // mainFormTitle
             // 
             mainFormTitle.AutoSize = true;
             mainFormTitle.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            mainFormTitle.Location = new Point(120, -19);
+            mainFormTitle.Location = new Point(123, -15);
             mainFormTitle.Name = "mainFormTitle";
             mainFormTitle.Size = new Size(183, 81);
             mainFormTitle.TabIndex = 0;
             mainFormTitle.Text = "Folds";
             mainFormTitle.Click += mainFormTitle_Click;
-            // 
-            // logoPlaceHolder
-            // 
-            logoPlaceHolder.AutoSize = true;
-            logoPlaceHolder.BackColor = Color.Transparent;
-            logoPlaceHolder.FlatStyle = FlatStyle.Flat;
-            logoPlaceHolder.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            logoPlaceHolder.ForeColor = Color.FromArgb(92, 225, 230);
-            logoPlaceHolder.Location = new Point(44, -22);
-            logoPlaceHolder.Name = "logoPlaceHolder";
-            logoPlaceHolder.Size = new Size(92, 81);
-            logoPlaceHolder.TabIndex = 2;
-            logoPlaceHolder.Text = "@";
             // 
             // line1
             // 
@@ -100,6 +91,7 @@
             // dashBoardButton
             // 
             dashBoardButton.BackColor = Color.Transparent;
+            dashBoardButton.FlatAppearance.BorderColor = SystemColors.Control;
             dashBoardButton.FlatAppearance.BorderSize = 0;
             dashBoardButton.FlatStyle = FlatStyle.Flat;
             dashBoardButton.Font = new Font("Bahnschrift SemiBold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -122,6 +114,7 @@
             // folderButton
             // 
             folderButton.BackColor = Color.Transparent;
+            folderButton.FlatAppearance.BorderColor = SystemColors.Control;
             folderButton.FlatAppearance.BorderSize = 0;
             folderButton.FlatStyle = FlatStyle.Flat;
             folderButton.Font = new Font("Bahnschrift SemiBold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -153,6 +146,7 @@
             // historyButton
             // 
             historyButton.BackColor = Color.Transparent;
+            historyButton.FlatAppearance.BorderColor = SystemColors.Control;
             historyButton.FlatAppearance.BorderSize = 0;
             historyButton.FlatStyle = FlatStyle.Flat;
             historyButton.Font = new Font("Bahnschrift SemiBold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -175,6 +169,7 @@
             // archiveButton
             // 
             archiveButton.BackColor = Color.Transparent;
+            archiveButton.FlatAppearance.BorderColor = SystemColors.Control;
             archiveButton.FlatAppearance.BorderSize = 0;
             archiveButton.FlatStyle = FlatStyle.Flat;
             archiveButton.Font = new Font("Bahnschrift SemiBold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -186,12 +181,41 @@
             archiveButton.UseVisualStyleBackColor = false;
             archiveButton.Click += archiveButton_Click;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(73, 2);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(60, 57);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 8;
+            pictureBox1.TabStop = false;
+            // 
+            // panel6
+            // 
+            panel6.BackColor = Color.FromArgb(217, 217, 217);
+            panel6.Location = new Point(897, 65);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(231, 3);
+            panel6.TabIndex = 9;
+            // 
+            // panel7
+            // 
+            panel7.BackColor = Color.FromArgb(217, 217, 217);
+            panel7.Location = new Point(1143, 65);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(231, 3);
+            panel7.TabIndex = 10;
+            // 
             // mainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1497, 836);
+            Controls.Add(panel7);
+            Controls.Add(panel6);
+            Controls.Add(pictureBox1);
             Controls.Add(archiveButton);
             Controls.Add(panel5);
             Controls.Add(historyButton);
@@ -201,14 +225,15 @@
             Controls.Add(panel1);
             Controls.Add(dashBoardButton);
             Controls.Add(line1);
-            Controls.Add(logoPlaceHolder);
             Controls.Add(mainFormTitle);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "mainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Load += mainForm_Load;
             line1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -216,7 +241,6 @@
         #endregion
 
         private Label mainFormTitle;
-        private Label logoPlaceHolder;
         private Panel line1;
         private Button dashBoardButton;
         private Panel panel1;
@@ -228,5 +252,8 @@
         private Button historyButton;
         private Panel panel5;
         private Button archiveButton;
+        private PictureBox pictureBox1;
+        private Panel panel6;
+        private Panel panel7;
     }
 }

@@ -35,6 +35,8 @@ namespace folder_management
         {
             panel3.BackColor = ColorTranslator.FromHtml("#5ce1e6");
             panel4.BackColor = ColorTranslator.FromHtml("#d9d9d9");
+            panel6.BackColor = ColorTranslator.FromHtml("#d9d9d9");
+            panel7.BackColor = ColorTranslator.FromHtml("#d9d9d9");
 
             // dispose the controls before removing them (to release resources)
             foreach (Control control in mainPanel.Controls)
@@ -52,6 +54,8 @@ namespace folder_management
         {
             panel3.BackColor = ColorTranslator.FromHtml("#d9d9d9");
             panel4.BackColor = ColorTranslator.FromHtml("#5ce1e6");
+            panel6.BackColor = ColorTranslator.FromHtml("#d9d9d9");
+            panel7.BackColor = ColorTranslator.FromHtml("#d9d9d9");
             // dispose the controls before removing them (to release resources)
             foreach (Control control in mainPanel.Controls)
             {
@@ -82,6 +86,10 @@ namespace folder_management
 
         private void historyButton_Click(object sender, EventArgs e)
         {
+            panel3.BackColor = ColorTranslator.FromHtml("#d9d9d9");
+            panel4.BackColor = ColorTranslator.FromHtml("#d9d9d9");
+            panel6.BackColor = ColorTranslator.FromHtml("#5ce1e6");
+            panel7.BackColor = ColorTranslator.FromHtml("#d9d9d9");
             foreach (Control control in mainPanel.Controls)
             {
                 control.Dispose();
@@ -95,6 +103,10 @@ namespace folder_management
 
         private void archiveButton_Click(object sender, EventArgs e)
         {
+            panel3.BackColor = ColorTranslator.FromHtml("#d9d9d9");
+            panel4.BackColor = ColorTranslator.FromHtml("#d9d9d9");
+            panel6.BackColor = ColorTranslator.FromHtml("#d9d9d9");
+            panel7.BackColor = ColorTranslator.FromHtml("#5ce1e6");
             foreach (Control control in mainPanel.Controls)
             {
                 control.Dispose();
